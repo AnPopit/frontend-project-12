@@ -1,9 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-    ids: [],
-    entities: {},
-};
+const initialState = {};
 
 const authSlice = createSlice({
     name: 'auth',
@@ -11,13 +8,13 @@ const authSlice = createSlice({
     reducers: {
         logIn(state, action) {
             const user  = action.payload;
-            state.entities[user.id] = user;
-            state.ids.push(user.id);
+            localStorage.setItem('user', JSON.stringify(user));
+            state[user.id] = user;
+
         },
         logOut(state, action) {
             const { id } = action.payload;
-            delete state.entities[id];
-            state.ids = state.ids.filter((idEl) => idEl !== id);
+            delete state[id];
         },
     },
 });

@@ -6,6 +6,7 @@ const PublicPage = () => {
     let navigate = useNavigate();
     const  {token}  = JSON.parse(localStorage.getItem('user'))
     const auth = useSelector((state) => state.auth);
+    console.log(auth)
     
     useEffect(() => {
         !token ? navigate('/login') : null

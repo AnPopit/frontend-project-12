@@ -13,7 +13,7 @@ const LoginPage = () => {
     const inputRef = useRef();
     const [authFailed, setAuthFailed] = useState(false);
     const [error, setError] = useState(true)
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const formik = useFormik({
@@ -25,7 +25,6 @@ const LoginPage = () => {
             setAuthFailed(false);
             try {
                 const res = await axios.post(routes.loginPath(), values);
-                localStorage.setItem('user', JSON.stringify(res.data));
                 res.data.id = _.uniqueId()
                 dispatch(logIn(res.data))
                 navigate('/');
