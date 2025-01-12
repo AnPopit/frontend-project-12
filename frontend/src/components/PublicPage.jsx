@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 const PublicPage = () => {
-    //let navigate = useNavigate();
+    let navigate = useNavigate();
     const  {token}  = JSON.parse(localStorage.getItem('user'))
     const auth = useSelector((state) => state.auth);
     
