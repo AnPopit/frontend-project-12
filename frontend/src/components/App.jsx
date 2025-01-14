@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
     BrowserRouter as Router,
     Routes,
@@ -13,13 +14,24 @@ import PublicPage from './PublicPage.jsx';
 import LoginPage from './LoginPage.jsx';
 import ErrorPage from './errorPage.jsx';
 
+const PrivateRoute = ({ children }) => {
+    const auth = useSelector((state) => state.auth);
+    return (
+        auth.token ? children : <Navigate to="/login" /> //заменить на токен, из слайса брать
+    );
+};
+
 
 const App = () => (
     <Router>
         <div className="container p-3">
             <Routes>
                 <Route path="*" element={<ErrorPage />} />
-                <Route path="/" element={<PublicPage />} />
+                <Route path="/" element={(
+                    <PrivateRoute>
+                        <PublicPage />
+                    </PrivateRoute>
+                )} />
                 <Route path="/login" element={<LoginPage />} />
             </Routes>
         </div>

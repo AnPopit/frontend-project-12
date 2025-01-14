@@ -15,6 +15,19 @@ export const addDataMessages = createAsyncThunk(
     },
 );
 
+/*export const postDataMessages = createAsyncThunk(
+    'messages/postDataMessages',
+    async (token, newMessage) => {
+        const response = axios.post(routes.messagesPath(), newMessage, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+        console.log(newMessage);
+    },
+);
+*/
+
 const messagesAdapter = createEntityAdapter();
 
 const initialState = messagesAdapter.getInitialState();
@@ -28,6 +41,9 @@ const messagesSlice = createSlice({
             .addCase(addDataMessages.fulfilled, (state, action) => {
                 messagesAdapter.addMany(state, action);   
             })
+            //.addCase(postDataMessages.fulfilled, (state, action) => {
+            //    messagesAdapter.addOne(state, action);   
+            //})
     },
 });
 

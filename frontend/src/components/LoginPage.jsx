@@ -26,6 +26,7 @@ const LoginPage = () => {
             try {
                 const res = await axios.post(routes.loginPath(), values);
                 res.data.id = _.uniqueId()
+                res.data.username = values.username
                 dispatch(logIn(res.data))
                 navigate('/'); 
             } catch (err) {

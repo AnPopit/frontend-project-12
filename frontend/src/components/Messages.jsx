@@ -1,29 +1,47 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import { PlusSquare } from 'react-bootstrap-icons';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
-
-
-
-
-
-
-
-
-
+import { io } from "socket.io-client";
+import {  addDataMessages } from '../slices/messagesSlice.js';
+import { selectorsMessages } from '../slices/messagesSlice.js';
+import { selectorsChannels } from '../slices/channelsSlice.js';
+import axios from 'axios';
 
 const Messages = (props) => {
-    const { messages } = props;
+    const socket = io("ws://localhost:5002")
+    socket.on('newMessage', (payload) => {
+        console.log(payload); // => { body: "new message", channelId: 7, id: 8, username: "admin" }
+    })
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
+
+    dispatch(addDataMessages(auth.token))
+    const messages = useSelector(selectorsMessages.selectAll);
+    const channels = useSelector(selectorsChannels.selectAll);
+    console.log(channels)
+
+
+
     const formik = useFormik({
         initialValues: {
-            username: "",
-            password: "",
+            messages: "",
         },
         onSubmit: (values) => {
-            //post запрос
-        },
-    });
+            const newMessage = {body: values.messages, channelId: '1', username: 'admin'}
+            axios.post('/api/v1/messages', newMessage, {
+                    headers: {
+                        Authorization: `Bearer ${auth.token}`,
+                    },
+                }).then((response) => {
+                    console.log(response.data); // => { id: '1', body: 'new message', channelId: '1', username: 'admin }
+                });
+            },
+        });
+
+
     return (
         <div class="col p-0 h-100">
             <div class="d-flex flex-column h-100">
