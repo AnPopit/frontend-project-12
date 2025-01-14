@@ -9,6 +9,7 @@ const authSlice = createSlice({
         logIn(state, action) {
             const user  = action.payload;
             localStorage.setItem('user', JSON.stringify(user));
+            //флаг авторизирован ли 
             state[user.id] = user;
 
         },

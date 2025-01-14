@@ -22,7 +22,7 @@ const initialState = messagesAdapter.getInitialState();
 
 const messagesSlice = createSlice({
     name: 'messages',
-    initialState,
+    initialState, //просто редьюсер для новых сообщений от сервера
     extraReducers: (builder) => {
         builder
             .addCase(addDataMessages.fulfilled, (state, action) => {

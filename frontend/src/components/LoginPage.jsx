@@ -27,12 +27,12 @@ const LoginPage = () => {
                 const res = await axios.post(routes.loginPath(), values);
                 res.data.id = _.uniqueId()
                 dispatch(logIn(res.data))
-                navigate('/');
+                navigate('/'); 
             } catch (err) {
                 formik.setSubmitting(false);
                 setError(err.message)
                 setAuthFailed(true);
-                throw err;
+                throw err; //ошибка сети, позже todo
             }
         }
     });

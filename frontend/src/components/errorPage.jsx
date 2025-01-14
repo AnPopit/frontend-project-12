@@ -18,3 +18,5 @@ const ErrorPage = () => {
   };
 
   export default ErrorPage;
+
+  //переименовать файл ErrorPage

@@ -5,7 +5,8 @@ import { selectorsChannels } from '../slices/channelsSlice.js';
 import { addDataChannels } from '../slices/channelsSlice.js';
 import { selectorsMessages } from '../slices/messagesSlice.js';
 import { addDataMessages } from '../slices/messagesSlice.js';
-import renderChat from '../render/renderChat.jsx';
+import Channel from './Channel.jsx';
+import Messages from './Messages.jsx';
 
 const PublicPage = () => {
     const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const PublicPage = () => {
 
     useEffect(() => {
         !token ? navigate('/login') : null
-    }, []);
+    }, []); //сделать приватный путь 
 
 
     dispatch(addDataChannels(token))
@@ -23,14 +24,23 @@ const PublicPage = () => {
     const channels = useSelector(selectorsChannels.selectAll);
     const messages = useSelector(selectorsMessages.selectAll);
 
-    console.log(channels)
-
+    console.log(messages)
 
 
 
 
     return (
-        renderChat(channels, messages)
+        <div className="container h-100 my-4 overflow-hidden rounded shadow">
+            <div className="row h-100 bg-white flex-md-row">
+                <Channel channels={channels}></Channel>
+                <Messages messages={messages}></Messages>
+            </div>
+        </div>
+
+
+
+
+        //renderChat(channels, messages) //сделать компоненты chat (отдельные компоненты для каналов и сообщений), modal
     )
 };
 
