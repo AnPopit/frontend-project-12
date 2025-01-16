@@ -2,40 +2,21 @@ import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/too
 import axios from 'axios';
 import routes from '../routes.js';
 
-export const addDataChannels = createAsyncThunk(
-    'channels/addDataChannels',
-    async (token) => {
-        const response = await axios.get(routes.channelsPath(), {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        //console.log(response)
-        return response.data;
-    },
-);
 
-const channelsAdapter = createEntityAdapter();
-
-const initialState = channelsAdapter.getInitialState({ current: '' });
-
+const initialState = {list: [], activeChannel: {id: 1, name: 'general'}}
 
 const channelsSlice = createSlice({
     name: 'channels',
     initialState,
     reducers: {
         setChannel: (state, action) => {
-            state.current = action.payload; //как лучше организовать хранение текущего канала
+            state.list = [...state.list, ...action.payload];
         },
-    },
-    extraReducers: (builder) => {
-        builder
-            .addCase(addDataChannels.fulfilled, (state, action) => {
-                channelsAdapter.addMany(state, action);  
-            })
+        setActiveChannel: (state, action) => {
+            state.activeChannel = action.payload;
+        },
     },
 });
 
-export const selectorsChannels = channelsAdapter.getSelectors((state) => state.channels);
-export const { setChannel } = channelsSlice.actions;
+export const { setChannel, setActiveChannel } = channelsSlice.actions;
 export default channelsSlice.reducer;

@@ -1,28 +1,49 @@
-import React from 'react';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import { PlusSquare } from 'react-bootstrap-icons';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { io } from "socket.io-client";
-import {  addDataMessages } from '../slices/messagesSlice.js';
-import { selectorsMessages } from '../slices/messagesSlice.js';
-import { selectorsChannels } from '../slices/channelsSlice.js';
+import _ from 'lodash';
+import React, { useState, useEffect } from 'react';
+import { setMessages } from '../slices/messagesSlice.js';
+//import { selectorsChannels } from '../slices/channelsSlice.js';
 import axios from 'axios';
+import routes from '../routes.js';
 
-const Messages = (props) => {
-    const socket = io("ws://localhost:5002")
-    socket.on('newMessage', (payload) => {
-        console.log(payload); // => { body: "new message", channelId: 7, id: 8, username: "admin" }
-    })
+const Messages = () => {
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
 
-    dispatch(addDataMessages(auth.token))
-    const messages = useSelector(selectorsMessages.selectAll);
-    const channels = useSelector(selectorsChannels.selectAll);
-    console.log(channels)
+    const socket = io("ws://localhost:5002")
+    socket.on('newMessage', (payload) => {
+        dispatch(setMessages(payload))
+    })
 
+    //socket.emit("newMessage", (response) => {
+    //     console.log(response.status); // мне надо получить ответ от сервера???
+    //  });
+
+    useEffect(() => {
+        const getMessages = async (token) => {
+            const response = await axios.get(routes.messagesPath(), {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            //dispatch(setMessages(response.data)) надо ли это?
+        }
+        getMessages(auth.token);
+    }, []);
+
+    const messages = useSelector((state) => state.messages);
+    const channels = useSelector((state) => state.channels);
+
+    const activeChannel = channels.activeChannel;
+    const username = auth.username
+
+    console.log(`activeChannel: ${activeChannel.id}`)
 
 
     const formik = useFormik({
@@ -30,26 +51,41 @@ const Messages = (props) => {
             messages: "",
         },
         onSubmit: (values) => {
-            const newMessage = {body: values.messages, channelId: '1', username: 'admin'}
-            axios.post('/api/v1/messages', newMessage, {
-                    headers: {
-                        Authorization: `Bearer ${auth.token}`,
-                    },
-                }).then((response) => {
-                    console.log(response.data); // => { id: '1', body: 'new message', channelId: '1', username: 'admin }
-                });
-            },
-        });
 
+            const newMessage = { body: values.messages, channelId: activeChannel.name, username: username }
+            axios.post(routes.messagesPath(), newMessage, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`,
+                },
+            }).then((response) => {
+                dispatch(setMessages(response.data))
+            });
+        },
+    });
+
+    const getArrayMessage = (nameChannel) => {
+        const res = []
+        Object.keys(messages).map((el) => {
+            console.log(messages[el])
+            messages[el].channelId === nameChannel ? res.push(messages[el]) : null
+        })
+        return res
+    }
 
     return (
-        <div class="col p-0 h-100">
-            <div class="d-flex flex-column h-100">
-                <div class="bg-light mb-4 p-3 shadow-sm small"><
-                    p class="m-0"><b># general</b></p><span class="text-muted">1 сообщение</span>
+        <div className="col p-0 h-100">
+            <div className="d-flex flex-column h-100">
+                <div className="bg-light mb-4 p-3 shadow-sm small">
+                    <p className="m-0"><b># {activeChannel.name}</b></p><span className="text-muted">{getArrayMessage(activeChannel.name).length} сообщение</span>
                 </div>
-                <div id="messages-box" class="chat-messages overflow-auto px-5 ">
-                    <div class="text-break mb-2"><b>admin</b>: 1</div>
+                <div id="messages-box" className="chat-messages overflow-auto px-5 ">
+                    {getArrayMessage(activeChannel.name).map((el) => {
+                        return (
+                            <div key={_.uniqueId()} className="text-break mb-2"><b>{el.username}</b>: {el.body}</div>
+                        )
+                    })}
+
+
                 </div>
                 <div className="mt-auto px-5 py-3">
                     <Form noValidate="" className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
@@ -57,7 +93,7 @@ const Messages = (props) => {
                             <Form.Control aria-label="Новое сообщение" className="border-0 p-0 ps-2 form-control" id="messages" name="messages" value={formik.values.messages} onChange={formik.handleChange} placeholder="Введите сообщение..." />
                             <Button type="submit" disabled="" className="btn btn-group-vertical">
                                 <ArrowRightSquare size={20} />
-                                <span class="visually-hidden">Отправить</span>
+                                <span className="visually-hidden">Отправить</span>
                             </Button>
                         </Form.Group>
                     </Form>
