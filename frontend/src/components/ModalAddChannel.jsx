@@ -63,25 +63,30 @@ const Add = (props) => {
         }
     }
     return (
-        <Modal show onHide={handleClose}>
-            <Modal.Dialog>
-                <Modal.Header closeButton>
+        <Modal show>
+                <Modal.Header closeButton onHide={handleClose}>
                     <Modal.Title>Добавить канал</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <FormGroup onSubmit={formik.handleSubmit}>
-                        <FormControl isInvalid={isError} id="name" name="name" className="mb-2 form-control" ref={inputEl} onChange={formik.handleChange} value={formik.values.name}>
-                        </FormControl>
-                        <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
-                        <label className="visually-hidden" htmlFor="name">Имя канала</label>
-                        <div className="invalid-feedback"></div>
-                    </FormGroup>
-                    <div className="d-flex justify-content-end">
-                        <button onClick={handleClose} type="button" className="me-2 btn btn-secondary">Отменить</button>
-                        <button onClick={addChannel} type="submit" className="btn btn-primary">Отправить</button>
-                    </div>
+                    <Form onSubmit={formik.handleSubmit}>
+                        <FormGroup>
+                            <Form.Label>Имя канала</Form.Label>
+                            <FormControl isInvalid={isError} id="name" name="name" className="mb-2 form-control" ref={inputEl} onChange={formik.handleChange} value={formik.values.name}>
+                            </FormControl>
+                            <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
+
+                            <div className="invalid-feedback"></div>
+                        </FormGroup>
+                        <Modal.Footer>
+                            <Button onClick={handleClose} variant="secondary" disabled={formik.isSubmitting}>
+                                Отменить
+                            </Button>
+                            <Button onClick={addChannel} variant="primary" type="submit">
+                                Отправить
+                            </Button>
+                        </Modal.Footer>
+                    </Form>
                 </Modal.Body>
-            </Modal.Dialog>
         </Modal>
 
     )

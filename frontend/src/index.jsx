@@ -5,8 +5,8 @@ import store from './slices/index.js';
 
 import Component from './components/App.jsx';
 
-const container = document.getElementById('container');
-const root = createRoot(container);
+const chat = document.getElementById('chat');
+const root = createRoot(chat);
 root.render(
     <Provider store={store}>
         <Component />

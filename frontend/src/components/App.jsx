@@ -24,7 +24,6 @@ const PrivateRoute = ({ children }) => {
 
 const App = () => (
     <Router>
-        <div className="container p-3">
             <Routes>
                 <Route path="*" element={<ErrorPage />} />
                 <Route path="/" element={(
@@ -34,7 +33,6 @@ const App = () => (
                 )} />
                 <Route path="/login" element={<LoginPage />} />
             </Routes>
-        </div>
 
     </Router>
 );

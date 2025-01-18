@@ -13,7 +13,7 @@ const channelsSlice = createSlice({
             state.list = [...state.list, ...action.payload];
         },
         setActiveChannel: (state, action) => {
-            state.activeChannel = action.payload;
+            state.activeChannel = action.payload; //удаление и переимнование - через обычные редьюсеры 
         },
     },
 });

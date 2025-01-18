@@ -12,18 +12,17 @@ const PublicPage = () => {
     const [isAddChannel, setAddChannel] = useState(false)
 
     return (
+        <>
+        
         <div className="container h-100 my-4 overflow-hidden rounded shadow">
             <div className="row h-100 bg-white flex-md-row">
                 <Channel setAddChannel={setAddChannel}></Channel>
                 <Messages></Messages>
-                {isAddChannel? <ModalAddChannel setAddChannel={setAddChannel}></ModalAddChannel> : null}
+                
             </div>
         </div>
-
-
-
-
-        //renderChat(channels, messages) //сделать компоненты chat (отдельные компоненты для каналов и сообщений), modal
+        {isAddChannel? <ModalAddChannel setAddChannel={setAddChannel}></ModalAddChannel> : null}
+        </>
     )
 };
 

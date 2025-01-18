@@ -52,7 +52,7 @@ const Messages = () => {
         },
         onSubmit: (values) => {
 
-            const newMessage = { body: values.messages, channelId: activeChannel.name, username: username }
+            const newMessage = { body: values.messages, channelId: activeChannel.id, username: username } //try catch
             axios.post(routes.messagesPath(), newMessage, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
@@ -63,11 +63,11 @@ const Messages = () => {
         },
     });
 
-    const getArrayMessage = (nameChannel) => {
+    const getArrayMessage = (idChannel) => {
         const res = []
         Object.keys(messages).map((el) => {
             console.log(messages[el])
-            messages[el].channelId === nameChannel ? res.push(messages[el]) : null
+            messages[el].channelId === idChannel ? res.push(messages[el]) : null
         })
         return res
     }
@@ -76,10 +76,10 @@ const Messages = () => {
         <div className="col p-0 h-100">
             <div className="d-flex flex-column h-100">
                 <div className="bg-light mb-4 p-3 shadow-sm small">
-                    <p className="m-0"><b># {activeChannel.name}</b></p><span className="text-muted">{getArrayMessage(activeChannel.name).length} сообщение</span>
+                    <p className="m-0"><b># {activeChannel.name}</b></p><span className="text-muted">{getArrayMessage(activeChannel.id).length} сообщение</span>
                 </div>
                 <div id="messages-box" className="chat-messages overflow-auto px-5 ">
-                    {getArrayMessage(activeChannel.name).map((el) => {
+                    {getArrayMessage(activeChannel.id).map((el) => {
                         return (
                             <div key={_.uniqueId()} className="text-break mb-2"><b>{el.username}</b>: {el.body}</div>
                         )
@@ -89,12 +89,11 @@ const Messages = () => {
                 </div>
                 <div className="mt-auto px-5 py-3">
                     <Form noValidate="" className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
-                        <Form.Group>
+                        <Form.Group  className="input-group has-validation">
                             <Form.Control aria-label="Новое сообщение" className="border-0 p-0 ps-2 form-control" id="messages" name="messages" value={formik.values.messages} onChange={formik.handleChange} placeholder="Введите сообщение..." />
-                            <Button type="submit" disabled="" className="btn btn-group-vertical">
-                                <ArrowRightSquare size={20} />
-                                <span className="visually-hidden">Отправить</span>
-                            </Button>
+                            <button type="submit" disabled="" className="btn btn-group-vertical">
+                                <ArrowRightSquare fill="currentColor" size={20} />
+                            </button>
                         </Form.Group>
                     </Form>
                 </div>

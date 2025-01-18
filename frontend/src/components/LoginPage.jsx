@@ -16,6 +16,10 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        inputRef.current.focus();
+      }, []);
+
     const formik = useFormik({
         initialValues: {
             username: "",
