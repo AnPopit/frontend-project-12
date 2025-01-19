@@ -37,6 +37,7 @@ const LoginPage = () => {
                 formik.setSubmitting(false);
                 setError(err.message)
                 setAuthFailed(true);
+                console.log(err)
                 throw err; //ошибка сети, позже todo
             }
         }

@@ -18,6 +18,7 @@ const authSlice = createSlice({
         },
         logOut(state, action) {
             state.log = false;
+            state.token = false; //надо ли???
         },
     },
 });

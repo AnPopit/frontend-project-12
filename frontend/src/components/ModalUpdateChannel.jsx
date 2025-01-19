@@ -6,12 +6,12 @@ import axios from 'axios';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { Modal, FormGroup, FormControl } from 'react-bootstrap';
-import { setChannel, setActiveChannel } from '../slices/channelsSlice.js'
+import { setChannel, setActiveChannel, updateChannel } from '../slices/channelsSlice.js'
 
-// BEGIN (write your solution here)
-const Add = (props) => {
+const Update = (props) => {
     const auth = useSelector((state) => state.auth);
-    const { setAddChannel } = props
+    const { setUpdateChannel, channelForAction } = props
+
     const channels = useSelector((state) => state.channels);
     const inputEl = useRef(null);
     const [error, setError] = useState('');
@@ -41,22 +41,22 @@ const Add = (props) => {
 
     const formik = useFormik({
         initialValues: {
-            name: '',
+            name: channelForAction.name,
         },
         validationSchema: schema,
         onSubmit: (values) => {
             try {
-                const newChannel = { name: values.name };
-                console.log(newChannel)
-                axios.post('/api/v1/channels', newChannel, {
+                const editedChannel = { name: values.name };
+                axios.patch(`/api/v1/channels/${channelForAction.id}`, editedChannel, {
                     headers: {
                         Authorization: `Bearer ${auth.token}`,
                     },
                 }).then((response) => {
-                    dispatch(setChannel([response.data])); // => { id: '3', name: 'new channel', removable: true }
+                    dispatch(updateChannel(response.data)); // => { id: '3', name: 'new channel', removable: true }
                     dispatch(setActiveChannel({ id: response.data.id, name: response.data.name }))
+                    console.log(response.data); // => { id: '3', name: 'new name channel', removable: true }
                 });
-                setAddChannel(false)
+                setUpdateChannel(false)
 
             } catch (e) {
                 formik.setSubmitting(false);
@@ -65,7 +65,7 @@ const Add = (props) => {
         }
     });
 
-    const handleClose = () => setAddChannel(false);
+    const handleClose = () => setUpdateChannel(false);
     const dispatch = useDispatch();
 
     const checkVal = () => {
@@ -79,12 +79,12 @@ const Add = (props) => {
     return (
         <Modal show>
             <Modal.Header closeButton onHide={handleClose}>
-                <Modal.Title>Добавить канал</Modal.Title>
+                <Modal.Title>Переименовать канал</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={formik.handleSubmit}>
                     <FormGroup>
-                        <FormControl isInvalid={isError} id="name" name="name" className="mb-2 form-control" ref={inputEl} onChange={formik.handleChange} value={formik.values.name}>
+                        <FormControl isInvalid={isError} onFocus={() => inputEl.current.select()} id="name" name="name" className="mb-2 form-control" ref={inputEl} onChange={formik.handleChange} value={formik.values.name}>
                         </FormControl>
                         <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
                         <div className="invalid-feedback"></div>
@@ -104,4 +104,4 @@ const Add = (props) => {
     )
 }
 
-export default Add
+export default Update

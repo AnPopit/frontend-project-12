@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     BrowserRouter as Router,
@@ -8,31 +9,33 @@ import {
     Navigate,
     useLocation,
 } from 'react-router-dom';
-//import { Button, Navbar, Nav } from 'react-bootstrap';
+
 
 import PublicPage from './PublicPage.jsx';
 import LoginPage from './LoginPage.jsx';
 import ErrorPage from './errorPage.jsx';
+import Header from './Header.jsx';
 
 const PrivateRoute = ({ children }) => {
     const auth = useSelector((state) => state.auth);
     return (
-        auth.token ? children : <Navigate to="/login" /> //заменить на токен, из слайса брать
+        auth.token ? children : <Navigate to="/login" />
     );
 };
 
 
 const App = () => (
     <Router>
-            <Routes>
-                <Route path="*" element={<ErrorPage />} />
-                <Route path="/" element={(
-                    <PrivateRoute>
-                        <PublicPage />
-                    </PrivateRoute>
-                )} />
-                <Route path="/login" element={<LoginPage />} />
-            </Routes>
+        <Header></Header>
+        <Routes>
+            <Route path="*" element={<ErrorPage />} />
+            <Route path="/" element={(
+                <PrivateRoute>
+                    <PublicPage />
+                </PrivateRoute>
+            )} />
+            <Route path="/login" element={<LoginPage />} />
+        </Routes>
 
     </Router>
 );

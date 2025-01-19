@@ -6,7 +6,7 @@ import { PlusSquare } from 'react-bootstrap-icons';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { io } from "socket.io-client";
 import _ from 'lodash';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useRef } from 'react';
 import { setMessages } from '../slices/messagesSlice.js';
 //import { selectorsChannels } from '../slices/channelsSlice.js';
 import axios from 'axios';
@@ -15,6 +15,7 @@ import routes from '../routes.js';
 const Messages = () => {
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
+    const inputEl = useRef(null);
 
     const socket = io("ws://localhost:5002")
     socket.on('newMessage', (payload) => {
@@ -32,7 +33,10 @@ const Messages = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            //dispatch(setMessages(response.data)) надо ли это?
+            console.log(response.data)
+            response.data.map((el) => {
+                dispatch(setMessages(el))
+            })
         }
         getMessages(auth.token);
     }, []);
@@ -43,7 +47,6 @@ const Messages = () => {
     const activeChannel = channels.activeChannel;
     const username = auth.username
 
-    console.log(`activeChannel: ${activeChannel.id}`)
 
 
     const formik = useFormik({
@@ -51,26 +54,33 @@ const Messages = () => {
             messages: "",
         },
         onSubmit: (values) => {
-
-            const newMessage = { body: values.messages, channelId: activeChannel.id, username: username } //try catch
-            axios.post(routes.messagesPath(), newMessage, {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`,
-                },
-            }).then((response) => {
-                dispatch(setMessages(response.data))
-            });
+            try {
+                const newMessage = { body: values.messages, channelId: activeChannel.id, username: username } //try catch
+                axios.post(routes.messagesPath(), newMessage, {
+                    headers: {
+                        Authorization: `Bearer ${auth.token}`,
+                    },
+                }).then((response) => {
+                    dispatch(setMessages(response.data))
+                });
+            } catch (e) {
+                console.log(e)
+            }
         },
     });
 
     const getArrayMessage = (idChannel) => {
         const res = []
         Object.keys(messages).map((el) => {
-            console.log(messages[el])
             messages[el].channelId === idChannel ? res.push(messages[el]) : null
         })
         return res
     }
+    useEffect(() => {
+            inputEl.current.focus();
+        }, []);
+
+    console.log(messages)
 
     return (
         <div className="col p-0 h-100">
@@ -89,8 +99,8 @@ const Messages = () => {
                 </div>
                 <div className="mt-auto px-5 py-3">
                     <Form noValidate="" className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
-                        <Form.Group  className="input-group has-validation">
-                            <Form.Control aria-label="Новое сообщение" className="border-0 p-0 ps-2 form-control" id="messages" name="messages" value={formik.values.messages} onChange={formik.handleChange} placeholder="Введите сообщение..." />
+                        <Form.Group className="input-group has-validation">
+                            <Form.Control ref={inputEl} aria-label="Новое сообщение" className="border-0 p-0 ps-2 form-control" id="messages" name="messages" value={formik.values.messages} onChange={formik.handleChange} placeholder="Введите сообщение..." />
                             <button type="submit" disabled="" className="btn btn-group-vertical">
                                 <ArrowRightSquare fill="currentColor" size={20} />
                             </button>
