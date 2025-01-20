@@ -18,7 +18,7 @@ const Del = (props) => {
 
     const handleDelChannel = () => {
 
-        setDelChannel(false)
+       
         try {
             axios.delete(`/api/v1/channels/${channelForAction.id}`, {
                 headers: {
@@ -27,6 +27,7 @@ const Del = (props) => {
             }).then((response) => {
                 dispatch((delChannel(response.data.id)))
                 dispatch((delChannelFromMessages(response.data.id)))
+                setDelChannel(false)
 
             });
         } catch (e) {

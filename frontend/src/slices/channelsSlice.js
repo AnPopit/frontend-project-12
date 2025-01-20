@@ -3,7 +3,7 @@ import axios from 'axios';
 import routes from '../routes.js';
 
 
-const initialState = { list: [], activeChannel: { id: 1, name: 'general' } }
+const initialState = { list: [], activeChannel: { id: '1', name: 'general' } }
 
 const channelsSlice = createSlice({
     name: 'channels',

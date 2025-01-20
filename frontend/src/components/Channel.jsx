@@ -14,16 +14,24 @@ import { setChannel, setActiveChannel } from '../slices/channelsSlice.js'
 
 
 const Channel = (props) => {
-    const { setAddChannel, setDelChannel,  setUpdateChannel, setchannelForAction} = props
+
+    const { setAddChannel, setDelChannel, setUpdateChannel, setchannelForAction } = props
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
     const channels = useSelector((state) => state.channels);
+    const activeChannelId = channels.activeChannel.id
+
     
+
 
     const setChannelFun = (id, name) => () => {
         const channel = { id, name } //откуда брать ID???
         dispatch(setActiveChannel(channel))
     }
+
+    const getClass = (id) => {
+        return id === activeChannelId ? "w-100 rounded-0 text-start text-truncate btn btn-secondary" : "w-100 rounded-0 text-start text-truncate btn"
+    } //почему изначально не выделяется канал general
 
 
 
@@ -55,6 +63,10 @@ const Channel = (props) => {
 
 
 
+
+
+
+
     return (
         <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
             <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
@@ -69,23 +81,22 @@ const Channel = (props) => {
                         return (
                             <li key={el.id} className="nav-item w-100">
                                 <div role="group" className="d-flex dropdown btn-group">
-                                    <Button onClick={setChannelFun(el.id, el.name)}
+                                    <button onClick={setChannelFun(el.id, el.name)}
                                         type="button"
-                                        className="w-100 rounded-0 text-start text-truncate"
-                                        variant='secondary'
+                                        className={getClass(el.id)}
                                     >
                                         <span className="me-1">#</span>
                                         {el.name}
-                                    </Button>
+                                    </button>
                                     <Dropdown as={ButtonGroup} className="d-flex">
-                                        <Dropdown.Toggle variant='secondary' split className="flex-grow-0">
-                                        <span className="visually-hidden">Управление каналом</span>
+                                        <Dropdown.Toggle aria-expanded="false" variant={el.id === activeChannelId ? "secondary" : null} split className="flex-grow-0">
+                                            <span className="visually-hidden">Управление каналом</span>
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
-                                            <Dropdown.Item onClick={handleDelModal({id: el.id, name: el.name})}>
+                                            <Dropdown.Item onClick={handleDelModal({ id: el.id, name: el.name })}>
                                                 Удалить
                                             </Dropdown.Item>
-                                            <Dropdown.Item onClick={handleUpdateModal({id: el.id, name: el.name})}>
+                                            <Dropdown.Item onClick={handleUpdateModal({ id: el.id, name: el.name })}>
                                                 Переименовать
                                             </Dropdown.Item>
                                         </Dropdown.Menu>
@@ -94,9 +105,10 @@ const Channel = (props) => {
                             </li>
                         )
                     } else {
+                        console.log(typeof el.id, typeof activeChannelId)
                         return (
                             <li className="nav-item w-100" key={el.id}>
-                                <button type="button" onClick={setChannelFun(el.id, el.name)} className="w-100 rounded-0 text-start btn btn-secondary"><span className="me-1">#</span>{el.name}</button>
+                                <button type="button" onClick={setChannelFun(el.id, el.name)} className={getClass(el.id)}><span className="me-1">#</span>{el.name}</button>
                             </li>
                         )
                     }

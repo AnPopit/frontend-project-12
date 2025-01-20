@@ -28,7 +28,7 @@ const Update = (props) => {
         name: yup.string()
             .required()
             .min(3)
-            .max(8)
+            .max(20)
             .notOneOf(
                 getArrayChannel(),
                 'Должно быть уникальным',
@@ -55,8 +55,9 @@ const Update = (props) => {
                     dispatch(updateChannel(response.data)); // => { id: '3', name: 'new channel', removable: true }
                     dispatch(setActiveChannel({ id: response.data.id, name: response.data.name }))
                     console.log(response.data); // => { id: '3', name: 'new name channel', removable: true }
+                    setUpdateChannel(false)
                 });
-                setUpdateChannel(false)
+                
 
             } catch (e) {
                 formik.setSubmitting(false);

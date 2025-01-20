@@ -16,6 +16,7 @@ const Messages = () => {
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
     const inputEl = useRef(null);
+    const divEl = useRef(null);
 
     const socket = io("ws://localhost:5002")
     socket.on('newMessage', (payload) => {
@@ -47,6 +48,8 @@ const Messages = () => {
     const activeChannel = channels.activeChannel;
     const username = auth.username
 
+    
+
 
 
     const formik = useFormik({
@@ -62,6 +65,8 @@ const Messages = () => {
                     },
                 }).then((response) => {
                     dispatch(setMessages(response.data))
+                    values.messages = ''
+                    inputEl.current.focus();
                 });
             } catch (e) {
                 console.log(e)
@@ -78,9 +83,12 @@ const Messages = () => {
     }
     useEffect(() => {
             inputEl.current.focus();
-        }, []);
+            divEl.current?.scrollIntoView();
+        }, [activeChannel]); //при переключении активного канала ставится фокус
 
     console.log(messages)
+
+    //прокрутка element.scrollIntoView();???
 
     return (
         <div className="col p-0 h-100">
@@ -89,9 +97,9 @@ const Messages = () => {
                     <p className="m-0"><b># {activeChannel.name}</b></p><span className="text-muted">{getArrayMessage(activeChannel.id).length} сообщение</span>
                 </div>
                 <div id="messages-box" className="chat-messages overflow-auto px-5 ">
-                    {getArrayMessage(activeChannel.id).map((el) => {
+                    {getArrayMessage(activeChannel.id).map((el, i) => {
                         return (
-                            <div key={_.uniqueId()} className="text-break mb-2"><b>{el.username}</b>: {el.body}</div>
+                            <div ref={i === (getArrayMessage(activeChannel.id).length -1)? divEl: null} key={_.uniqueId()} className="text-break mb-2"><b>{el.username}</b>: {el.body}</div>
                         )
                     })}
 

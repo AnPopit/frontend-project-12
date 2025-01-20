@@ -28,7 +28,7 @@ const Add = (props) => {
         name: yup.string()
             .required()
             .min(3)
-            .max(8)
+            .max(20)
             .notOneOf(
                 getArrayChannel(),
                 'Должно быть уникальным',
@@ -55,8 +55,9 @@ const Add = (props) => {
                 }).then((response) => {
                     dispatch(setChannel([response.data])); // => { id: '3', name: 'new channel', removable: true }
                     dispatch(setActiveChannel({ id: response.data.id, name: response.data.name }))
+                    setAddChannel(false) //теперь форма закрывается после получения ответа?
                 });
-                setAddChannel(false)
+                
 
             } catch (e) {
                 formik.setSubmitting(false);

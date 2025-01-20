@@ -18,6 +18,7 @@ import Header from './Header.jsx';
 
 const PrivateRoute = ({ children }) => {
     const auth = useSelector((state) => state.auth);
+    console.log(localStorage.getItem('user'))
     return (
         auth.token ? children : <Navigate to="/login" />
     );
