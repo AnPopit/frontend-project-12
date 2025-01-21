@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { Modal, FormGroup, FormControl } from 'react-bootstrap';
 import { setChannel, setActiveChannel, updateChannel } from '../slices/channelsSlice.js'
+import routes from '../routes.js';
 
 const Update = (props) => {
     const auth = useSelector((state) => state.auth);
@@ -47,7 +48,7 @@ const Update = (props) => {
         onSubmit: (values) => {
             try {
                 const editedChannel = { name: values.name };
-                axios.patch(`/api/v1/channels/${channelForAction.id}`, editedChannel, {
+                axios.patch(routes.editChannelsPath(channelForAction.id), editedChannel, {
                     headers: {
                         Authorization: `Bearer ${auth.token}`,
                     },

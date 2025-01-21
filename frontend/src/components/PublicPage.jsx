@@ -15,20 +15,22 @@ const PublicPage = () => {
     const [isDelChannel, setDelChannel] = useState(false)
     const [isUpdateChannel, setUpdateChannel] = useState(false)
     const [channelForAction, setchannelForAction] = useState('')
+    const auth = useSelector((state) => state.auth);
+
 
     return (
         <>
-        
-        <div className="container h-100 my-4 overflow-hidden rounded shadow">
-            <div className="row h-100 bg-white flex-md-row">
-                <Channel setAddChannel={setAddChannel} setDelChannel={setDelChannel} setUpdateChannel={setUpdateChannel} setchannelForAction={setchannelForAction}></Channel>
-                <Messages></Messages>
-                
+
+            <div className="container h-100 my-4 overflow-hidden rounded shadow">
+                <div className="row h-100 bg-white flex-md-row">
+                    <Channel setAddChannel={setAddChannel} setDelChannel={setDelChannel} setUpdateChannel={setUpdateChannel} setchannelForAction={setchannelForAction}></Channel>
+                    <Messages></Messages>
+
+                </div>
             </div>
-        </div>
-        {isAddChannel? <ModalAddChannel setAddChannel={setAddChannel}></ModalAddChannel> : null}
-        {isDelChannel? <ModalDelChannel channelForAction={channelForAction} setDelChannel={setDelChannel}></ModalDelChannel> : null}
-        {isUpdateChannel? <ModalUpdateChannel channelForAction={channelForAction} setUpdateChannel={setUpdateChannel}></ModalUpdateChannel> : null}
+            {isAddChannel ? <ModalAddChannel setAddChannel={setAddChannel}></ModalAddChannel> : null}
+            {isDelChannel ? <ModalDelChannel channelForAction={channelForAction} setDelChannel={setDelChannel}></ModalDelChannel> : null}
+            {isUpdateChannel ? <ModalUpdateChannel channelForAction={channelForAction} setUpdateChannel={setUpdateChannel}></ModalUpdateChannel> : null}
         </>
     )
 };

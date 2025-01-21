@@ -45,7 +45,8 @@ const Channel = (props) => {
             dispatch(setChannel(response.data))
         }
         getChannel(auth.token);
-    }, []);
+        console.log(auth.username)
+    }, [auth.username]);
 
     const handleAddChannel = () => {
         setAddChannel(true)
@@ -59,7 +60,6 @@ const Channel = (props) => {
         setUpdateChannel(true)
     }
 
-    console.log(channels)
 
 
 
@@ -105,7 +105,6 @@ const Channel = (props) => {
                             </li>
                         )
                     } else {
-                        console.log(typeof el.id, typeof activeChannelId)
                         return (
                             <li className="nav-item w-100" key={el.id}>
                                 <button type="button" onClick={setChannelFun(el.id, el.name)} className={getClass(el.id)}><span className="me-1">#</span>{el.name}</button>

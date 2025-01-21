@@ -8,6 +8,7 @@ import { useFormik } from 'formik';
 import { Modal, FormGroup, FormControl } from 'react-bootstrap';
 import { setChannel, setActiveChannel, delChannel } from '../slices/channelsSlice.js'
 import { delChannelFromMessages } from '../slices/messagesSlice.js'
+import routes from '../routes.js';
 
 const Del = (props) => {
 
@@ -20,7 +21,7 @@ const Del = (props) => {
 
        
         try {
-            axios.delete(`/api/v1/channels/${channelForAction.id}`, {
+            axios.delete(routes.editChannelsPath(channelForAction.id), {
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
                 },

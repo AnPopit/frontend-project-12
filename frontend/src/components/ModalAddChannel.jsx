@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { Modal, FormGroup, FormControl } from 'react-bootstrap';
 import { setChannel, setActiveChannel } from '../slices/channelsSlice.js'
+import routes from '../routes.js';
 
 // BEGIN (write your solution here)
 const Add = (props) => {
@@ -48,7 +49,7 @@ const Add = (props) => {
             try {
                 const newChannel = { name: values.name };
                 console.log(newChannel)
-                axios.post('/api/v1/channels', newChannel, {
+                axios.post(routes.channelsPath(), newChannel, {
                     headers: {
                         Authorization: `Bearer ${auth.token}`,
                     },

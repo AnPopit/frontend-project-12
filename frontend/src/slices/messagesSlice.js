@@ -1,6 +1,5 @@
-import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import routes from '../routes.js';
+import { createSlice } from '@reduxjs/toolkit';
+
 
 const initialState = {}
 

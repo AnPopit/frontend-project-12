@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import routes from '../routes.js';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logIn, logOut } from '../slices/authSlice.js';
 import loginImg from '../assets/login.jpg';
@@ -31,8 +31,6 @@ const LoginPage = () => {
             setAuthFailed(false);
             try {
                 const res = await axios.post(routes.loginPath(), values);
-                res.data.id = _.uniqueId()
-                res.data.username = values.username
                 dispatch(logIn(res.data))
                 navigate('/');
             } catch (err) {
@@ -57,10 +55,11 @@ const LoginPage = () => {
                                     <Form.Label htmlFor="username">Username</Form.Label>
                                     <Form.Control onChange={formik.handleChange}
                                         value={formik.values.username}
+                                        disabled={formik.isSubmitting? true : false}
                                         placeholder="username"
                                         name="username"
-                                        id="username"
                                         autoComplete="username"
+                                        id="username"
                                         isInvalid={authFailed}
                                         required
                                         ref={inputRef} />
@@ -69,6 +68,7 @@ const LoginPage = () => {
                                     <Form.Label htmlFor="password">Password</Form.Label>
                                     <Form.Control type="password"
                                         onChange={formik.handleChange}
+                                        disabled={formik.isSubmitting? true : false}
                                         value={formik.values.password}
                                         placeholder="password"
                                         name="password"
@@ -78,11 +78,11 @@ const LoginPage = () => {
                                         required />
                                     <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
                                 </Form.Group>
-                                <button type="submit" className="w-100 mb-3 btn btn-outline-primary">Войти</button>
+                                <button disabled={formik.isSubmitting? true : false} type="submit" className="w-100 mb-3 btn btn-outline-primary">Войти</button>
                             </form>
                         </div>
                         <div className="card-footer p-4">
-                            <div className="text-center"><span>Нет аккаунта?</span> <a href="/signup">Регистрация</a></div>
+                            <div className="text-center"><span>Нет аккаунта? </span><Link to={routes.onlySignupPath()}>Регистрация</Link></div>
                         </div>
                     </div>
                 </div>

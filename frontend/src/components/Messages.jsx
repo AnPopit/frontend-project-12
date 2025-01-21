@@ -34,7 +34,6 @@ const Messages = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response.data)
             response.data.map((el) => {
                 dispatch(setMessages(el))
             })
@@ -86,7 +85,6 @@ const Messages = () => {
             divEl.current?.scrollIntoView();
         }, [activeChannel]); //при переключении активного канала ставится фокус
 
-    console.log(messages)
 
     //прокрутка element.scrollIntoView();???
 

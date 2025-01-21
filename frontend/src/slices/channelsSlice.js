@@ -1,6 +1,5 @@
-import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import routes from '../routes.js';
+import { createSlice } from '@reduxjs/toolkit';
+
 
 
 const initialState = { list: [], activeChannel: { id: '1', name: 'general' } }
@@ -10,10 +9,10 @@ const channelsSlice = createSlice({
     initialState,
     reducers: {
         setChannel: (state, action) => {
-            state.list = [...state.list, ...action.payload];
+            state.list = [...state.list, ...action.payload]; //удалить дубликаты?
         },
         setActiveChannel: (state, action) => {
-            state.activeChannel = action.payload; //удаление и переимнование - через обычные редьюсеры 
+            state.activeChannel = action.payload;
         },
         delChannel: (state, action) => {
             const id = action.payload;
@@ -23,8 +22,6 @@ const channelsSlice = createSlice({
         },
         updateChannel: (state, action) => {
             state.list = state.list.map((el) => {
-                console.log(el.id)
-                console.log(action.payload.id)
                 if (el.id === action.payload.id) {
                     el.name = action.payload.name
                     

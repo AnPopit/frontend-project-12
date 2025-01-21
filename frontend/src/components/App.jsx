@@ -9,18 +9,19 @@ import {
     Navigate,
     useLocation,
 } from 'react-router-dom';
+import routes from '../routes.js';
 
 
 import PublicPage from './PublicPage.jsx';
 import LoginPage from './LoginPage.jsx';
 import ErrorPage from './errorPage.jsx';
 import Header from './Header.jsx';
+import SignupPage from './SignupPage.jsx';
 
 const PrivateRoute = ({ children }) => {
     const auth = useSelector((state) => state.auth);
-    console.log(localStorage.getItem('user'))
     return (
-        auth.token ? children : <Navigate to="/login" />
+        auth.token ? children : <Navigate to={routes.onlyLoginPath()} />
     );
 };
 
@@ -36,6 +37,7 @@ const App = () => (
                 </PrivateRoute>
             )} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
         </Routes>
 
     </Router>
