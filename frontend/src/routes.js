@@ -9,4 +9,5 @@ export default {
   onlyLoginPath: () => '/login',
   editChannelsPath: (id) => [apiPath, 'channels', id].join('/'),
   onlySignupPath: () => '/signup',
+  signupPath: () => [apiPath, 'signup'].join('/'),
 };

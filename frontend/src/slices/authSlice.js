@@ -13,6 +13,8 @@ const authSlice = createSlice({
             const {token, username}  = action.payload;
             //console.log(username)
             localStorage.setItem('user', JSON.stringify({token, username}));
+            const data = (JSON.parse(localStorage.getItem('user')))
+            console.log(data)
             state.log = true;
             state.token = token;
             //state.id = id;
