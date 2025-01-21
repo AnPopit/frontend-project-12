@@ -8,8 +8,13 @@ export default [
   {
     ignores: ['dist/', 'build/'],
   },
-  {files: ["**/*.{js,mjs,cjs,jsx}"]},
-  {languageOptions: { globals: globals.browser }},
+  {
+    rules: {
+      "react/prop-types": 'off',
+    }
+  },
+  { files: ["**/*.{js,mjs,cjs,jsx}"] },
+  { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   pluginReact.configs.flat.recommended,
 ];
