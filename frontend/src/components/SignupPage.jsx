@@ -1,13 +1,12 @@
 import { useFormik } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import {Form } from 'react-bootstrap';
 import routes from '../routes.js';
 import axios from 'axios';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { logIn, logOut } from '../slices/authSlice.js';
+import {  useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logIn } from '../slices/authSlice.js';
 import signup from '../assets/signup.jpg';
-import _ from 'lodash';
 import * as yup from 'yup';
 
 
@@ -57,7 +56,6 @@ const SignupPage = () => {
                 setError(err.message)
                 setAuthFailed(true);
                 console.log(err)
-                console.log(e)
             }
         }
     });

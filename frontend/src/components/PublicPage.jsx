@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-;
+
 
 
 import Channel from './Channel.jsx';
@@ -11,7 +10,7 @@ import ModalDelChannel from './ModalDelChannel.jsx';
 import ModalUpdateChannel from './ModalUpdateChannel.jsx';
 import axios from 'axios';
 import routes from '../routes.js';
-import { setChannel, setActiveChannel } from '../slices/channelsSlice.js'
+import { setChannel } from '../slices/channelsSlice.js'
 
 const PublicPage = () => {
     const [isAddChannel, setAddChannel] = useState(false)

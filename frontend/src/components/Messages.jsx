@@ -1,12 +1,11 @@
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
-import { Button, Form } from 'react-bootstrap';
-import { PlusSquare } from 'react-bootstrap-icons';
+import { Form } from 'react-bootstrap';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { io } from "socket.io-client";
 import _ from 'lodash';
-import React, { useState, useEffect ,useRef } from 'react';
+import React, { useEffect ,useRef } from 'react';
 import { setMessages } from '../slices/messagesSlice.js';
 //import { selectorsChannels } from '../slices/channelsSlice.js';
 import axios from 'axios';
@@ -95,7 +94,7 @@ const Messages = () => {
                     <p className="m-0"><b># {activeChannel.name}</b></p><span className="text-muted">{getArrayMessage(activeChannel.id).length} сообщение</span>
                 </div>
                 <div id="messages-box" className="chat-messages overflow-auto px-5 ">
-                    {getArrayMessage(activeChannel.id).map((el, i) => {
+                    {getArrayMessage(activeChannel.id).map((el) => {
                         return (
                             <div key={_.uniqueId()} className="text-break mb-2"><b>{el.username}</b>: {el.body}</div>
                         )

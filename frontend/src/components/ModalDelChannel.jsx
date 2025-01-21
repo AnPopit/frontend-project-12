@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Form } from 'react-bootstrap';
-import _ from 'lodash';
+import { Button } from 'react-bootstrap';
+//import _ from 'lodash';
 import axios from 'axios';
-import * as yup from 'yup';
-import { useFormik } from 'formik';
-import { Modal, FormGroup, FormControl } from 'react-bootstrap';
-import { setChannel, setActiveChannel, delChannel } from '../slices/channelsSlice.js'
+import { Modal } from 'react-bootstrap';
+import { delChannel } from '../slices/channelsSlice.js'
 import { delChannelFromMessages } from '../slices/messagesSlice.js'
 import routes from '../routes.js';
 

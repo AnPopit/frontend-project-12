@@ -1,9 +1,10 @@
 //import { Button, Navbar, Nav } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { logIn, logOut } from '../slices/authSlice.js';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { logOut } from '../slices/authSlice.js';
+import { Link, useNavigate } from 'react-router-dom';
 import routes from '../routes.js';
 import { Navbar } from 'react-bootstrap';
+import React from 'react';
 
 const Header = () => {
 

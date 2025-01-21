@@ -19,7 +19,7 @@ const authSlice = createSlice({
             state.username = username;
 
         },
-        logOut(state, action) {
+        logOut(state) {
             state.log = false;
             state.username = ''
             state.token = '' //надо ли??? 

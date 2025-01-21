@@ -1,13 +1,9 @@
 import errorImg from '../assets/error.svg';
 import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Link,
-    Navigate,
-    useLocation,
+    Link
   } from 'react-router-dom';
   import routes from '../routes.js';
+  import React from 'react';
 
 
 const ErrorPage = () => {

@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
     BrowserRouter as Router,
     Routes,
     Route,
-    Link,
-    Navigate,
-    useLocation,
+    Navigate
 } from 'react-router-dom';
 import routes from '../routes.js';
 

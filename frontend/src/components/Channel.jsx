@@ -1,23 +1,17 @@
-
-import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Form } from 'react-bootstrap';
 import { PlusSquare } from 'react-bootstrap-icons';
-import React, { useState, useEffect } from 'react';
-import _ from 'lodash';
-import axios from 'axios';
-import routes from '../routes.js';
+import React from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-import { setChannel, setActiveChannel } from '../slices/channelsSlice.js'
+import { setActiveChannel } from '../slices/channelsSlice.js'
 
 
 const Channel = (props) => {
 
     const { setAddChannel, setDelChannel, setUpdateChannel, setchannelForAction } = props
     const dispatch = useDispatch();
-    const auth = useSelector((state) => state.auth);
+    //const auth = useSelector((state) => state.auth);
     const channels = useSelector((state) => state.channels);
     const activeChannelId = channels.activeChannel.id
 

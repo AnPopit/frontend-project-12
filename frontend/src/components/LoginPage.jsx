@@ -1,13 +1,13 @@
 import { useFormik } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import routes from '../routes.js';
 import axios from 'axios';
-import {Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { logIn, logOut } from '../slices/authSlice.js';
+import {Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logIn } from '../slices/authSlice.js';
 import loginImg from '../assets/login.jpg';
-import _ from 'lodash';
+//import _ from 'lodash';
 
 
 const LoginPage = () => {

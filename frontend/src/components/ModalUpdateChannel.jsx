@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
-import _ from 'lodash';
 import axios from 'axios';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { Modal, FormGroup, FormControl } from 'react-bootstrap';
-import { setChannel, setActiveChannel, updateChannel } from '../slices/channelsSlice.js'
+import {  setActiveChannel, updateChannel } from '../slices/channelsSlice.js'
 import routes from '../routes.js';
 
 const Update = (props) => {

@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
-import _ from 'lodash';
+//import _ from 'lodash';
 import axios from 'axios';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { Modal, FormGroup, FormControl } from 'react-bootstrap';
-import { setChannel, setActiveChannel } from '../slices/channelsSlice.js'
+import { setActiveChannel } from '../slices/channelsSlice.js'
 import routes from '../routes.js';
 
 // BEGIN (write your solution here)
@@ -15,7 +15,7 @@ const Add = (props) => {
     const { setAddChannel } = props
     const channels = useSelector((state) => state.channels);
     const inputEl = useRef(null);
-    const [error, setError] = useState('');
+    //const [error, setError] = useState('');
     const [isError, setisError] = useState(false);
     const getArrayChannel = () => {
         const arrayChannel = []
