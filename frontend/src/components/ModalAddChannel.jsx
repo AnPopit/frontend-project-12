@@ -54,7 +54,7 @@ const Add = (props) => {
                         Authorization: `Bearer ${auth.token}`,
                     },
                 }).then((response) => {
-                    dispatch(setChannel([response.data])); // => { id: '3', name: 'new channel', removable: true }
+                    //dispatch(setChannel([response.data])); // => { id: '3', name: 'new channel', removable: true }
                     dispatch(setActiveChannel({ id: response.data.id, name: response.data.name }))
                     setAddChannel(false) //теперь форма закрывается после получения ответа?
                 });
@@ -73,7 +73,6 @@ const Add = (props) => {
     const checkVal = () => {
         if (formik.errors.name) {
             formik.setSubmitting(false);
-            setError(formik.errors.name)
             setisError(true)
         }
     }
@@ -86,9 +85,9 @@ const Add = (props) => {
             <Modal.Body>
                 <Form onSubmit={formik.handleSubmit}>
                     <FormGroup>
-                        <FormControl isInvalid={isError} id="name" name="name" className="mb-2 form-control" ref={inputEl} onChange={formik.handleChange} value={formik.values.name}>
+                <FormControl isInvalid={!!formik.errors.name} id="name" name="name" className="mb-2 form-control" ref={inputEl} onChange={formik.handleChange} value={formik.values.name}>
                         </FormControl>
-                        <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
                         <div className="invalid-feedback"></div>
                     </FormGroup>
                     <Modal.Footer>

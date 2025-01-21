@@ -11,6 +11,7 @@ import { setMessages } from '../slices/messagesSlice.js';
 //import { selectorsChannels } from '../slices/channelsSlice.js';
 import axios from 'axios';
 import routes from '../routes.js';
+import { animateScroll } from 'react-scroll';
 
 const Messages = () => {
     const dispatch = useDispatch();
@@ -23,9 +24,6 @@ const Messages = () => {
         dispatch(setMessages(payload))
     })
 
-    //socket.emit("newMessage", (response) => {
-    //     console.log(response.status); // мне надо получить ответ от сервера???
-    //  });
 
     useEffect(() => {
         const getMessages = async (token) => {
@@ -82,11 +80,13 @@ const Messages = () => {
     }
     useEffect(() => {
             inputEl.current.focus();
+            animateScroll.scrollToBottom({
+                containerId: "messages-box"
+              });
             divEl.current?.scrollIntoView();
-        }, [activeChannel]); //при переключении активного канала ставится фокус
+        }, [activeChannel]);
 
 
-    //прокрутка element.scrollIntoView();???
 
     return (
         <div className="col p-0 h-100">
@@ -97,7 +97,7 @@ const Messages = () => {
                 <div id="messages-box" className="chat-messages overflow-auto px-5 ">
                     {getArrayMessage(activeChannel.id).map((el, i) => {
                         return (
-                            <div ref={i === (getArrayMessage(activeChannel.id).length -1)? divEl: null} key={_.uniqueId()} className="text-break mb-2"><b>{el.username}</b>: {el.body}</div>
+                            <div key={_.uniqueId()} className="text-break mb-2"><b>{el.username}</b>: {el.body}</div>
                         )
                     })}
 
@@ -122,3 +122,5 @@ const Messages = () => {
 
 export default Messages;
 
+
+//блокировка инпута и самбиа во время отправки

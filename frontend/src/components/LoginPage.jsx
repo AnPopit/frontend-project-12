@@ -52,7 +52,6 @@ const LoginPage = () => {
                             <form className="col-12 col-md-6 mt-3 mt-md-0" onSubmit={formik.handleSubmit}>
                             <h1 className="text-center mb-4">Войти</h1>
                                 <Form.Group className="form-floating mb-3">
-                                    <Form.Label htmlFor="username">Username</Form.Label>
                                     <Form.Control onChange={formik.handleChange}
                                         value={formik.values.username}
                                         disabled={formik.isSubmitting? true : false}
@@ -63,9 +62,9 @@ const LoginPage = () => {
                                         isInvalid={authFailed}
                                         required
                                         ref={inputRef} />
+                                        <Form.Label htmlFor="username">Username</Form.Label>
                                 </Form.Group>
                                 <Form.Group className="form-floating mb-4">
-                                    <Form.Label htmlFor="password">Password</Form.Label>
                                     <Form.Control type="password"
                                         onChange={formik.handleChange}
                                         disabled={formik.isSubmitting? true : false}
@@ -76,6 +75,7 @@ const LoginPage = () => {
                                         autoComplete="current-password"
                                         isInvalid={authFailed}
                                         required />
+                                        <Form.Label htmlFor="password">Password</Form.Label>
                                     <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
                                 </Form.Group>
                                 <button disabled={formik.isSubmitting? true : false} type="submit" className="w-100 mb-3 btn btn-outline-primary">Войти</button>

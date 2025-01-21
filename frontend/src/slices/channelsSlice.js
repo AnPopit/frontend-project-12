@@ -9,7 +9,7 @@ const channelsSlice = createSlice({
     initialState,
     reducers: {
         setChannel: (state, action) => {
-            state.list = [...state.list, ...action.payload]; //удалить дубликаты?
+            state.list = action.payload;
         },
         setActiveChannel: (state, action) => {
             state.activeChannel = action.payload;

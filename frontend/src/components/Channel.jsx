@@ -35,18 +35,7 @@ const Channel = (props) => {
 
 
 
-    useEffect(() => {
-        const getChannel = async (token) => {
-            const response = await axios.get(routes.channelsPath(), { //try catch
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            dispatch(setChannel(response.data))
-        }
-        getChannel(auth.token);
-        console.log(auth.username)
-    }, [auth.username]);
+    
 
     const handleAddChannel = () => {
         setAddChannel(true)

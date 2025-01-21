@@ -9,6 +9,9 @@ import Messages from './Messages.jsx';
 import ModalAddChannel from './ModalAddChannel.jsx';
 import ModalDelChannel from './ModalDelChannel.jsx';
 import ModalUpdateChannel from './ModalUpdateChannel.jsx';
+import axios from 'axios';
+import routes from '../routes.js';
+import { setChannel, setActiveChannel } from '../slices/channelsSlice.js'
 
 const PublicPage = () => {
     const [isAddChannel, setAddChannel] = useState(false)
@@ -16,6 +19,19 @@ const PublicPage = () => {
     const [isUpdateChannel, setUpdateChannel] = useState(false)
     const [channelForAction, setchannelForAction] = useState('')
     const auth = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const getChannel = async (token) => {
+            const response = await axios.get(routes.channelsPath(), { //try catch
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            dispatch(setChannel(response.data))
+        }
+        getChannel(auth.token);
+    }, [isAddChannel]); //todo зависимость НЕ от флага 
 
 
     return (

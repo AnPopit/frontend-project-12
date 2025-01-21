@@ -66,7 +66,7 @@ const SignupPage = () => {
         console.log(formik.errors)
         if (formik.errors.username) {
             formik.setSubmitting(false);
-            setError(formik.errors.username)
+            setError(formik.errors.username) //п
             setisError(true)
         }
     }
