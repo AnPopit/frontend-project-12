@@ -3,11 +3,12 @@ import { PlusSquare } from 'react-bootstrap-icons';
 import React from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
-
+import { useTranslation } from 'react-i18next';
 import { setActiveChannel } from '../slices/channelsSlice.js'
 
 
 const Channel = (props) => {
+    const { t } = useTranslation();
 
     const { setAddChannel, setDelChannel, setUpdateChannel, setchannelForAction } = props
     const dispatch = useDispatch();
@@ -53,7 +54,7 @@ const Channel = (props) => {
     return (
         <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
             <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-                <b>Каналы</b>
+                <b>{t('channels.channels')}</b>
                 <button onClick={handleAddChannel} className="p-0 text-primary btn btn-group-vertical">
                     <PlusSquare size={20} />
                 </button>
@@ -73,14 +74,14 @@ const Channel = (props) => {
                                     </button>
                                     <Dropdown as={ButtonGroup} className="d-flex">
                                         <Dropdown.Toggle aria-expanded="false" variant={el.id === activeChannelId ? "secondary" : null} split className="flex-grow-0">
-                                            <span className="visually-hidden">Управление каналом</span>
+                                            <span className="visually-hidden">{t('channels.menu')}</span>
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
                                             <Dropdown.Item onClick={handleDelModal({ id: el.id, name: el.name })}>
-                                                Удалить
+                                            {t('channels.remove')}
                                             </Dropdown.Item>
                                             <Dropdown.Item onClick={handleUpdateModal({ id: el.id, name: el.name })}>
-                                                Переименовать
+                                            {t('channels.rename')}
                                             </Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>

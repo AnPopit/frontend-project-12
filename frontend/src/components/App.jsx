@@ -18,6 +18,7 @@ import SignupPage from './SignupPage.jsx';
 
 const PrivateRoute = ({ children }) => {
     const auth = useSelector((state) => state.auth);
+    console.log(auth.token)
     return (
         auth.token ? children : <Navigate to={routes.onlyLoginPath()} />
     );

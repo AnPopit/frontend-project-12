@@ -7,8 +7,10 @@ import { useFormik } from 'formik';
 import { Modal, FormGroup, FormControl } from 'react-bootstrap';
 import {  setActiveChannel, updateChannel } from '../slices/channelsSlice.js'
 import routes from '../routes.js';
+import { useTranslation } from 'react-i18next';
 
 const Update = (props) => {
+    const { t } = useTranslation();
     const auth = useSelector((state) => state.auth);
     const { setUpdateChannel, channelForAction } = props
 
@@ -31,7 +33,7 @@ const Update = (props) => {
             .max(20)
             .notOneOf(
                 getArrayChannel(),
-                'Должно быть уникальным',
+                t('validation.uniq'),
             ),
     });
 
@@ -80,7 +82,7 @@ const Update = (props) => {
     return (
         <Modal show>
             <Modal.Header closeButton onHide={handleClose}>
-                <Modal.Title>Переименовать канал</Modal.Title>
+                <Modal.Title>{t('channels.renameChannel')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={formik.handleSubmit}>
@@ -92,10 +94,10 @@ const Update = (props) => {
                     </FormGroup>
                     <Modal.Footer>
                         <Button onClick={handleClose} variant="secondary" disabled={formik.isSubmitting}>
-                            Отменить
+                        {t('modals.cancel')}
                         </Button>
                         <Button onClick={checkVal} variant="primary" type="submit">
-                            Отправить
+                        {t('modals.submit')}
                         </Button>
                     </Modal.Footer>
                 </Form>

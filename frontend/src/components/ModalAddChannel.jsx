@@ -8,9 +8,11 @@ import { useFormik } from 'formik';
 import { Modal, FormGroup, FormControl } from 'react-bootstrap';
 import { setActiveChannel } from '../slices/channelsSlice.js'
 import routes from '../routes.js';
+import { useTranslation } from 'react-i18next';
 
 // BEGIN (write your solution here)
 const Add = (props) => {
+    const { t } = useTranslation();
     const auth = useSelector((state) => state.auth);
     const { setAddChannel } = props
     const channels = useSelector((state) => state.channels);
@@ -27,12 +29,12 @@ const Add = (props) => {
 
     const schema = yup.object({
         name: yup.string()
-            .required()
-            .min(3)
-            .max(20)
+            .required(t('validation.required'))
+            .min(3, t('validation.min'))
+            .max(20, t('validation.max'))
             .notOneOf(
                 getArrayChannel(),
-                'Должно быть уникальным',
+                t('validation.uniq'),
             ),
     });
 
@@ -80,7 +82,7 @@ const Add = (props) => {
     return (
         <Modal show>
             <Modal.Header closeButton onHide={handleClose}>
-                <Modal.Title>Добавить канал</Modal.Title>
+                <Modal.Title>{t('channels.add')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={formik.handleSubmit}>
@@ -92,10 +94,10 @@ const Add = (props) => {
                     </FormGroup>
                     <Modal.Footer>
                         <Button onClick={handleClose} variant="secondary" disabled={formik.isSubmitting}>
-                            Отменить
+                        {t('modals.cancel')}
                         </Button>
                         <Button onClick={checkVal} variant="primary" type="submit">
-                            Отправить
+                        {t('modals.submit')}
                         </Button>
                     </Modal.Footer>
                 </Form>

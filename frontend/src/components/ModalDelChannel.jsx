@@ -7,9 +7,10 @@ import { Modal } from 'react-bootstrap';
 import { delChannel } from '../slices/channelsSlice.js'
 import { delChannelFromMessages } from '../slices/messagesSlice.js'
 import routes from '../routes.js';
+import { useTranslation } from 'react-i18next';
 
 const Del = (props) => {
-
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
 
@@ -17,7 +18,7 @@ const Del = (props) => {
 
     const handleDelChannel = () => {
 
-       
+
         try {
             axios.delete(routes.editChannelsPath(channelForAction.id), {
                 headers: {
@@ -40,16 +41,16 @@ const Del = (props) => {
     return (
         <Modal show>
             <Modal.Header closeButton onHide={handleClose}>
-                <Modal.Title>Удалить канал</Modal.Title>
+                <Modal.Title>{t('channels.removeChannel')}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p className="lead">Уверены?</p>
+                <p className="lead">{t('modals.confirmation')}</p>
                 <Modal.Footer>
                     <Button onClick={handleClose} variant="secondary">
-                        Отменить
+                        {t('modals.cancel')}
                     </Button>
                     <Button onClick={handleDelChannel} variant="danger" type="submit">
-                        Удалить
+                        {t('modals.confirm')}
                     </Button>
                 </Modal.Footer>
 

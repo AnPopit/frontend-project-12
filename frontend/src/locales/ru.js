@@ -1,0 +1,76 @@
+const ru = {
+    translation: {
+      hexletChat: 'Hexlet Chat',
+      channels: {
+        menu: 'Управление каналом',
+        remove: 'Удалить',
+        rename: 'Переименовать',
+        channels: 'Каналы',
+        add: 'Добавить канал',
+        created: 'Канал создан',
+        renamed: 'Канал переименован',
+        renameChannel: 'Переименовать канал',
+        channelName: 'Имя канала',
+        editChannelName: 'Новое имя канала',
+        removed: 'Канал удалён',
+        removeChannel: 'Удалить канал',
+        noChannels: 'Каналы отсутствуют',
+      },
+      loading: 'Загрузка...',
+      login: {
+        username: 'Ваш ник',
+        password: 'Пароль',
+        submit: 'Войти',
+        signup: 'Регистрация',
+        newToChat: 'Нет аккаунта?',
+        authFailed: 'Неверные имя пользователя или пароль',
+        header: 'Войти',
+      },
+      modals: {
+        cancel: 'Отменить',
+        submit: 'Отправить',
+        confirmation: 'Уверены?',
+        confirm: 'Удалить',
+      },
+      validation: {
+        required: 'Обязательное поле',
+        min: 'От 3 до 20 символов',
+        max: 'От 3 до 20 символов',
+        uniq: 'Должно быть уникальным',
+      },
+      logout: 'Выйти',
+      chat: {
+        send: 'Отправить',
+        messageCount_zero: 'сообщений',
+        messageCount_one: 'сообщение',
+        messageCount_few: 'сообщения',
+        messageCount_many: 'сообщений',
+        newMessage: 'Новое сообщение',
+        inputMesage: 'Введите сообщение...',
+      },
+      signup: {
+        required: 'Обязательное поле',
+        passMin: 'Не менее 6 символов',
+        mustMatch: 'Пароли должны совпадать',
+        username: 'Имя пользователя',
+        usernameConstraints: 'От 3 до 20 символов',
+        password: 'Пароль',
+        confirm: 'Подтвердите пароль',
+        alreadyExists: 'Такой пользователь уже существует',
+        submit: 'Зарегистрироваться',
+        header: 'Регистрация',
+      },
+      notFound: {
+        header: 'Страница не найдена',
+        message: 'Но вы можете перейти ',
+        linkText: 'на главную страницу',
+      },
+      errors: {
+        network: 'Ошибка соединения',
+        unknown: 'Неизвестная ошибка',
+      },
+    },
+  };
+  
+  export default ru;
+  

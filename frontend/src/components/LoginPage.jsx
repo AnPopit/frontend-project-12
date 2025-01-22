@@ -7,10 +7,14 @@ import {Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../slices/authSlice.js';
 import loginImg from '../assets/login.jpg';
+import { useTranslation } from 'react-i18next';
 //import _ from 'lodash';
 
 
 const LoginPage = () => {
+    const { t } = useTranslation();
+
+    console.log(t('hexletChat'))
     
     const inputRef = useRef();
     const [authFailed, setAuthFailed] = useState(false);
@@ -50,7 +54,7 @@ const LoginPage = () => {
                         <div className="card-body row p-5">
                             <div className="col-12 col-md-6 d-flex align-items-center justify-content-center"><img src={loginImg} width="200" height="200" className="rounded-circle" alt="Войти"/></div>
                             <form className="col-12 col-md-6 mt-3 mt-md-0" onSubmit={formik.handleSubmit}>
-                            <h1 className="text-center mb-4">Войти</h1>
+                            <h1 className="text-center mb-4">{t('login.header')}</h1>
                                 <Form.Group className="form-floating mb-3">
                                     <Form.Control onChange={formik.handleChange}
                                         value={formik.values.username}
@@ -62,7 +66,7 @@ const LoginPage = () => {
                                         isInvalid={authFailed}
                                         required
                                         ref={inputRef} />
-                                        <Form.Label htmlFor="username">Username</Form.Label>
+                                        <Form.Label htmlFor="username">{t('login.username')}</Form.Label>
                                 </Form.Group>
                                 <Form.Group className="form-floating mb-4">
                                     <Form.Control type="password"
@@ -75,14 +79,14 @@ const LoginPage = () => {
                                         autoComplete="current-password"
                                         isInvalid={authFailed}
                                         required />
-                                        <Form.Label htmlFor="password">Password</Form.Label>
+                                        <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
                                     <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
                                 </Form.Group>
-                                <button disabled={formik.isSubmitting? true : false} type="submit" className="w-100 mb-3 btn btn-outline-primary">Войти</button>
+                                <button disabled={formik.isSubmitting? true : false} type="submit" className="w-100 mb-3 btn btn-outline-primary">{t('login.submit')}</button>
                             </form>
                         </div>
                         <div className="card-footer p-4">
-                            <div className="text-center"><span>Нет аккаунта? </span><Link to={routes.onlySignupPath()}>Регистрация</Link></div>
+                            <div className="text-center"><span>{t('login.newToChat')} </span><Link to={routes.onlySignupPath()}>{t('login.signup')}</Link></div>
                         </div>
                     </div>
                 </div>

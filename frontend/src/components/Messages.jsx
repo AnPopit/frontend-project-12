@@ -11,8 +11,10 @@ import { setMessages } from '../slices/messagesSlice.js';
 import axios from 'axios';
 import routes from '../routes.js';
 import { animateScroll } from 'react-scroll';
+import { useTranslation } from 'react-i18next';
 
 const Messages = () => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
     const inputEl = useRef(null);
@@ -91,7 +93,7 @@ const Messages = () => {
         <div className="col p-0 h-100">
             <div className="d-flex flex-column h-100">
                 <div className="bg-light mb-4 p-3 shadow-sm small">
-                    <p className="m-0"><b># {activeChannel.name}</b></p><span className="text-muted">{getArrayMessage(activeChannel.id).length} сообщение</span>
+                    <p className="m-0"><b># {activeChannel.name}</b></p><span className="text-muted">{getArrayMessage(activeChannel.id).length} {t('chat.messageCount', {count: getArrayMessage(activeChannel.id).length})}</span>
                 </div>
                 <div id="messages-box" className="chat-messages overflow-auto px-5 ">
                     {getArrayMessage(activeChannel.id).map((el) => {
@@ -105,7 +107,7 @@ const Messages = () => {
                 <div className="mt-auto px-5 py-3">
                     <Form noValidate="" className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
                         <Form.Group className="input-group has-validation">
-                            <Form.Control ref={inputEl} aria-label="Новое сообщение" className="border-0 p-0 ps-2 form-control" id="messages" name="messages" value={formik.values.messages} onChange={formik.handleChange} placeholder="Введите сообщение..." />
+                            <Form.Control ref={inputEl} aria-label={t('chat.newMessage')} className="border-0 p-0 ps-2 form-control" id="messages" name="messages" value={formik.values.messages} onChange={formik.handleChange} placeholder={t('chat.inputMesage')} />
                             <button type="submit" disabled="" className="btn btn-group-vertical">
                                 <ArrowRightSquare fill="currentColor" size={20} />
                             </button>

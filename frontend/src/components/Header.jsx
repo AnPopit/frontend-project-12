@@ -5,8 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import routes from '../routes.js';
 import { Navbar } from 'react-bootstrap';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
+    const { t } = useTranslation();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -21,9 +23,9 @@ const Header = () => {
         <Navbar className="shadow-sm navbar-expand-lg navbar-light bg-white navbar navbar-expand navbar-light">
             <div className="container">
                 <Navbar.Brand as={Link} to={routes.onlyPublickPath()}>
-                    Hexlet Chat
+                {t('hexletChat')}
                 </Navbar.Brand>
-                {auth.log ? <button onClick={logOutFun} type="button" className="btn btn-primary">Выйти</button> : null}
+                {auth.token ? <button onClick={logOutFun} type="button" className="btn btn-primary">{t('logout')}</button> : null}
             </div>
         </Navbar>
     )
