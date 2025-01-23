@@ -5,15 +5,16 @@ import axios from 'axios';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { Modal, FormGroup, FormControl } from 'react-bootstrap';
-import {  setActiveChannel, updateChannel } from '../slices/channelsSlice.js'
+import { setActiveChannel, updateChannel } from '../slices/channelsSlice.js'
 import routes from '../routes.js';
 import { useTranslation } from 'react-i18next';
+import {  toast } from 'react-toastify';
+
 
 const Update = (props) => {
     const { t } = useTranslation();
     const auth = useSelector((state) => state.auth);
     const { setUpdateChannel, channelForAction } = props
-
     const channels = useSelector((state) => state.channels);
     const inputEl = useRef(null);
     const [error, setError] = useState('');
@@ -58,12 +59,14 @@ const Update = (props) => {
                     dispatch(setActiveChannel({ id: response.data.id, name: response.data.name }))
                     console.log(response.data); // => { id: '3', name: 'new name channel', removable: true }
                     setUpdateChannel(false)
+                    toast(t('channels.renamed'))
                 });
-                
+
 
             } catch (e) {
                 formik.setSubmitting(false);
                 console.log(e)
+                toast.error(t('errors.network'))
             }
         }
     });
@@ -94,10 +97,10 @@ const Update = (props) => {
                     </FormGroup>
                     <Modal.Footer>
                         <Button onClick={handleClose} variant="secondary" disabled={formik.isSubmitting}>
-                        {t('modals.cancel')}
+                            {t('modals.cancel')}
                         </Button>
                         <Button onClick={checkVal} variant="primary" type="submit">
-                        {t('modals.submit')}
+                            {t('modals.submit')}
                         </Button>
                     </Modal.Footer>
                 </Form>

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,6 +9,7 @@ import { delChannel } from '../slices/channelsSlice.js'
 import { delChannelFromMessages } from '../slices/messagesSlice.js'
 import routes from '../routes.js';
 import { useTranslation } from 'react-i18next';
+import {  toast } from 'react-toastify';
 
 const Del = (props) => {
     const { t } = useTranslation();
@@ -19,8 +19,7 @@ const Del = (props) => {
     const { setDelChannel, channelForAction } = props
 
     const handleDelChannel = () => {
-
-
+        const notify = (text) => toast(text);
         try {
             axios.delete(routes.editChannelsPath(channelForAction.id), {
                 headers: {
@@ -29,11 +28,14 @@ const Del = (props) => {
             }).then((response) => {
                 dispatch((delChannel(response.data.id)))
                 dispatch((delChannelFromMessages(response.data.id)))
+                response.status 
+                console.log(response)
                 setDelChannel(false)
-
+                toast(t('channels.removed'))
             });
         } catch (e) {
-            console.log(e)
+            toast.error(t('errors.network'))
+            console.log(e.message)
         }
     }
 

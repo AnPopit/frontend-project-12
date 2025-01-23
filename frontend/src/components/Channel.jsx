@@ -5,6 +5,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useTranslation } from 'react-i18next';
 import { setActiveChannel } from '../slices/channelsSlice.js'
+import filter from 'leo-profanity';
 
 
 const Channel = (props) => {
@@ -70,7 +71,7 @@ const Channel = (props) => {
                                         className={getClass(el.id)}
                                     >
                                         <span className="me-1">#</span>
-                                        {el.name}
+                                        {filter.clean(el.name)}
                                     </button>
                                     <Dropdown as={ButtonGroup} className="d-flex">
                                         <Dropdown.Toggle aria-expanded="false" variant={el.id === activeChannelId ? "secondary" : null} split className="flex-grow-0">
@@ -91,7 +92,7 @@ const Channel = (props) => {
                     } else {
                         return (
                             <li className="nav-item w-100" key={el.id}>
-                                <button type="button" onClick={setChannelFun(el.id, el.name)} className={getClass(el.id)}><span className="me-1">#</span>{el.name}</button>
+                                <button type="button" onClick={setChannelFun(el.id, el.name)} className={getClass(el.id)}><span className="me-1">#</span>{filter.clean(el.name)}</button>
                             </li>
                         )
                     }

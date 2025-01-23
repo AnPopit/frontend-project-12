@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import routes from '../routes.js';
 import axios from 'axios';
-import {Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../slices/authSlice.js';
 import loginImg from '../assets/login.jpg';
@@ -13,12 +13,10 @@ import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
     const { t } = useTranslation();
-
     console.log(t('hexletChat'))
-    
+
     const inputRef = useRef();
-    const [authFailed, setAuthFailed] = useState(false);
-    const [error, setError] = useState(true)
+    const [authFailed, setAuthFailed] = useState(false)
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -39,10 +37,8 @@ const LoginPage = () => {
                 navigate('/');
             } catch (err) {
                 formik.setSubmitting(false);
-                setError(err.message)
                 setAuthFailed(true);
                 console.log(err)
-                throw err; //ошибка сети, позже todo
             }
         }
     });
@@ -52,13 +48,13 @@ const LoginPage = () => {
                 <div className="col-12 col-md-8 col-xxl-6">
                     <div className="card shadow-sm">
                         <div className="card-body row p-5">
-                            <div className="col-12 col-md-6 d-flex align-items-center justify-content-center"><img src={loginImg} width="200" height="200" className="rounded-circle" alt="Войти"/></div>
+                            <div className="col-12 col-md-6 d-flex align-items-center justify-content-center"><img src={loginImg} width="200" height="200" className="rounded-circle" alt="Войти" /></div>
                             <form className="col-12 col-md-6 mt-3 mt-md-0" onSubmit={formik.handleSubmit}>
-                            <h1 className="text-center mb-4">{t('login.header')}</h1>
+                                <h1 className="text-center mb-4">{t('login.header')}</h1>
                                 <Form.Group className="form-floating mb-3">
                                     <Form.Control onChange={formik.handleChange}
                                         value={formik.values.username}
-                                        disabled={formik.isSubmitting? true : false}
+                                        disabled={formik.isSubmitting ? true : false}
                                         placeholder="username"
                                         name="username"
                                         autoComplete="username"
@@ -66,12 +62,12 @@ const LoginPage = () => {
                                         isInvalid={authFailed}
                                         required
                                         ref={inputRef} />
-                                        <Form.Label htmlFor="username">{t('login.username')}</Form.Label>
+                                    <Form.Label htmlFor="username">{t('login.username')}</Form.Label>
                                 </Form.Group>
                                 <Form.Group className="form-floating mb-4">
                                     <Form.Control type="password"
                                         onChange={formik.handleChange}
-                                        disabled={formik.isSubmitting? true : false}
+                                        disabled={formik.isSubmitting ? true : false}
                                         value={formik.values.password}
                                         placeholder="password"
                                         name="password"
@@ -79,10 +75,10 @@ const LoginPage = () => {
                                         autoComplete="current-password"
                                         isInvalid={authFailed}
                                         required />
-                                        <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
-                                    <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
+                                    <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
+                                    <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
                                 </Form.Group>
-                                <button disabled={formik.isSubmitting? true : false} type="submit" className="w-100 mb-3 btn btn-outline-primary">{t('login.submit')}</button>
+                                <button disabled={formik.isSubmitting ? true : false} type="submit" className="w-100 mb-3 btn btn-outline-primary">{t('login.submit')}</button>
                             </form>
                         </div>
                         <div className="card-footer p-4">

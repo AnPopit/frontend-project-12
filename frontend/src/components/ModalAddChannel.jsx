@@ -9,10 +9,12 @@ import { Modal, FormGroup, FormControl } from 'react-bootstrap';
 import { setActiveChannel } from '../slices/channelsSlice.js'
 import routes from '../routes.js';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 // BEGIN (write your solution here)
 const Add = (props) => {
     const { t } = useTranslation();
+    const notify = (text) => toast(text);
     const auth = useSelector((state) => state.auth);
     const { setAddChannel } = props
     const channels = useSelector((state) => state.channels);
@@ -59,12 +61,13 @@ const Add = (props) => {
                     //dispatch(setChannel([response.data])); // => { id: '3', name: 'new channel', removable: true }
                     dispatch(setActiveChannel({ id: response.data.id, name: response.data.name }))
                     setAddChannel(false) //теперь форма закрывается после получения ответа?
+                    toast(t('channels.created'))
                 });
-                
-
             } catch (e) {
                 formik.setSubmitting(false);
                 console.log(e)
+                toast.error(t('errors.network'))
+
             }
         }
     });
@@ -87,17 +90,17 @@ const Add = (props) => {
             <Modal.Body>
                 <Form onSubmit={formik.handleSubmit}>
                     <FormGroup>
-                <FormControl isInvalid={!!formik.errors.name} id="name" name="name" className="mb-2 form-control" ref={inputEl} onChange={formik.handleChange} value={formik.values.name}>
+                        <FormControl isInvalid={!!formik.errors.name} id="name" name="name" className="mb-2 form-control" ref={inputEl} onChange={formik.handleChange} value={formik.values.name}>
                         </FormControl>
                         <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
                         <div className="invalid-feedback"></div>
                     </FormGroup>
                     <Modal.Footer>
                         <Button onClick={handleClose} variant="secondary" disabled={formik.isSubmitting}>
-                        {t('modals.cancel')}
+                            {t('modals.cancel')}
                         </Button>
                         <Button onClick={checkVal} variant="primary" type="submit">
-                        {t('modals.submit')}
+                            {t('modals.submit')}
                         </Button>
                     </Modal.Footer>
                 </Form>

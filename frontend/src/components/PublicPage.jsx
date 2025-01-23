@@ -11,6 +11,7 @@ import ModalUpdateChannel from './ModalUpdateChannel.jsx';
 import axios from 'axios';
 import routes from '../routes.js';
 import { setChannel } from '../slices/channelsSlice.js'
+import {  toast } from 'react-toastify';
 
 const PublicPage = () => {
     const [isAddChannel, setAddChannel] = useState(false)
@@ -20,16 +21,22 @@ const PublicPage = () => {
     const auth = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
+
     useEffect(() => {
-        const getChannel = async (token) => {
-            const response = await axios.get(routes.channelsPath(), { //try catch
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            dispatch(setChannel(response.data))
+        try {
+            const getChannel = async (token) => {
+                const response = await axios.get(routes.channelsPath(), { //try catch
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                dispatch(setChannel(response.data))
+            }
+            getChannel(auth.token);
+        } catch (e) {
+            toast.error(t('errors.network'))
         }
-        getChannel(auth.token);
+
     }, [isAddChannel]); //todo зависимость НЕ от флага 
 
 

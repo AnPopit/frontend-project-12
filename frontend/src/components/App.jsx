@@ -8,7 +8,7 @@ import {
     Navigate
 } from 'react-router-dom';
 import routes from '../routes.js';
-
+import { ToastContainer, toast } from 'react-toastify';
 
 import PublicPage from './PublicPage.jsx';
 import LoginPage from './LoginPage.jsx';
@@ -26,20 +26,24 @@ const PrivateRoute = ({ children }) => {
 
 
 const App = () => (
-    <Router>
-        <Header></Header>
-        <Routes>
-            <Route path="*" element={<ErrorPage />} />
-            <Route path="/" element={(
-                <PrivateRoute>
-                    <PublicPage />
-                </PrivateRoute>
-            )} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-        </Routes>
-
-    </Router>
+    <>
+    <div className="d-flex flex-column h-100">
+        <Router>
+            <Header></Header>
+            <Routes>
+                <Route path="*" element={<ErrorPage />} />
+                <Route path="/" element={(
+                    <PrivateRoute>
+                        <PublicPage />
+                    </PrivateRoute>
+                )} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+            </Routes>
+        </Router>
+    </div>
+    <ToastContainer />
+    </>
 );
 
 export default App;
