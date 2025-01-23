@@ -46,10 +46,6 @@ const SignupPage = () => {
         },
         validationSchema: schema,
         onSubmit: async (values) => {
-            setTimeout(() => {
-                console.log(JSON.stringify(values, null, 2));
-                formik.setSubmitting(false);
-              }, 400);
             setisError(false);
             try {
                 const res = await axios.post(routes.signupPath(), { username: values.username, password: values.password })
@@ -128,7 +124,7 @@ const SignupPage = () => {
                                         isInvalid={formik.errors.confirmPassword && formik.touched.confirmPassword}
                                         required />
                                     <Form.Label htmlFor="confirmPassword">{t('signup.confirm')}</Form.Label>
-                                    {isError? <Form.Control.Feedback type="invalid" tooltip>{t('signup.alreadyExists')}</Form.Control.Feedback> : <Form.Control.Feedback type="invalid" tooltip>{formik.errors.confirmPassword}</Form.Control.Feedback>  }
+                                    {isError ? <div className="invalid">{t('signup.alreadyExists')}</div> : <Form.Control.Feedback type="invalid" tooltip>{formik.errors.confirmPassword}</Form.Control.Feedback>  }
                                 </Form.Group>
                                 <button disabled={formik.isSubmitting ? true : false} type="submit" className="w-100 mb-3 btn btn-outline-primary">{t('signup.submit')}</button>
                             </form>
