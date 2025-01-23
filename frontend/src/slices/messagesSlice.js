@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {};
@@ -11,9 +13,7 @@ const messagesSlice = createSlice({
     },
     delChannelFromMessages: (state, action) => {
       const id = action.payload;
-      Object.keys(state).map((el) => {
-        state[el].channelId === id ? delete state[el] : null;
-      });
+      Object.keys(state).map((el) => (state[el].channelId === id ? delete state[el] : null));
     },
   },
 
