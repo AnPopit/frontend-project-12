@@ -14,7 +14,6 @@ import { toast } from 'react-toastify';
 // BEGIN (write your solution here)
 const Add = (props) => {
     const { t } = useTranslation();
-    const notify = (text) => toast(text);
     const auth = useSelector((state) => state.auth);
     const { setAddChannel } = props
     const channels = useSelector((state) => state.channels);

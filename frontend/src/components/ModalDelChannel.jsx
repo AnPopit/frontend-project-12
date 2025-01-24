@@ -19,7 +19,6 @@ const Del = (props) => {
     const { setDelChannel, channelForAction } = props
 
     const handleDelChannel = () => {
-        const notify = (text) => toast(text);
         try {
             axios.delete(routes.editChannelsPath(channelForAction.id), {
                 headers: {
