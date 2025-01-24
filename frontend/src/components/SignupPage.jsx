@@ -90,7 +90,7 @@ const SignupPage = () => {
                                         name="username"
                                         autoComplete="username"
                                         id="username"
-                                        isInvalid={formik.errors.username && formik.touched.username}
+                                        isInvalid={(formik.errors.confirmPassword && formik.touched.confirmPassword) || isError}
                                         required
                                         ref={inputRef} />
                                     <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
@@ -102,30 +102,31 @@ const SignupPage = () => {
                                         disabled={formik.isSubmitting ? true : false}
                                         placeholder="password"
                                         name="password"
-                                        type="password" 
+                                        type="password"
                                         autoComplete="password"
                                         id="password"
-                                        isInvalid={formik.errors.password && formik.touched.password}
+                                        isInvalid={(formik.errors.confirmPassword && formik.touched.confirmPassword) || isError}
                                         required
                                     />
                                     <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
                                     <Form.Control.Feedback type="invalid" tooltip>{formik.errors.password}</Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group className="form-floating mb-4">
-                                    <Form.Control 
+                                    <Form.Control
                                         onChange={formik.handleChange}
-                                        type="password" 
+                                        type="password"
                                         disabled={formik.isSubmitting ? true : false}
                                         value={formik.values.confirmPassword}
                                         placeholder="confirmPassword"
                                         name="confirmPassword"
                                         id="confirmPassword"
                                         autoComplete="current-confirmPassword"
-                                        isInvalid={formik.errors.confirmPassword && formik.touched.confirmPassword}
+                                        isInvalid={(formik.errors.confirmPassword && formik.touched.confirmPassword) || isError}
                                         required />
                                     <Form.Label htmlFor="confirmPassword">{t('signup.confirm')}</Form.Label>
-                                    {isError ? <div className="invalid">{t('signup.alreadyExists')}</div> : <Form.Control.Feedback type="invalid" tooltip>{formik.errors.confirmPassword}</Form.Control.Feedback>  }
+                                    <Form.Control.Feedback type="invalid" tooltip>{formik.errors.confirmPassword}</Form.Control.Feedback>
                                 </Form.Group>
+                                {isError && <div className="invalid ">{t('signup.alreadyExists')}</div>}
                                 <button disabled={formik.isSubmitting ? true : false} type="submit" className="w-100 mb-3 btn btn-outline-primary">{t('signup.submit')}</button>
                             </form>
                         </div>

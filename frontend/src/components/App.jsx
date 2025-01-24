@@ -8,7 +8,7 @@ import {
     Navigate
 } from 'react-router-dom';
 import routes from '../routes.js';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { Provider, ErrorBoundary } from '@rollbar/react'; // Provider imports 'rollbar'
 
 
@@ -19,15 +19,9 @@ import Header from './Header.jsx';
 import SignupPage from './SignupPage.jsx';
 
 const rollbarConfig = {
-    accessToken: '4ac36b7a96774ef58b053a1752d3f4cf',
+    accessToken: '5454c1fc81e04ba480a21a2e2e8ca635',
     environment: 'testenv',
 };
-
-function TestError() {
-    const a = null;
-    return a.hello();
-}
-
 
 
 const PrivateRoute = ({ children }) => {
@@ -39,10 +33,10 @@ const PrivateRoute = ({ children }) => {
 };
 
 
+
 const App = () => (
     <>
-        <Provider config={rollbarConfig}>
-            <ErrorBoundary>
+
                 <div className="d-flex flex-column h-100">
                     <Router>
                         <Header></Header>
@@ -59,8 +53,7 @@ const App = () => (
                     </Router>
                 </div>
                 <ToastContainer />
-            </ErrorBoundary>
-        </Provider>
+
     </>
 );
 

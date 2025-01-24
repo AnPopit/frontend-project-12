@@ -11,7 +11,6 @@ import ModalUpdateChannel from './ModalUpdateChannel.jsx';
 import axios from 'axios';
 import routes from '../routes.js';
 import { setChannel } from '../slices/channelsSlice.js'
-import {  toast } from 'react-toastify';
 
 const PublicPage = () => {
     const [isAddChannel, setAddChannel] = useState(false)
@@ -20,7 +19,6 @@ const PublicPage = () => {
     const [channelForAction, setchannelForAction] = useState('')
     const auth = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-
 
     useEffect(() => {
         try {

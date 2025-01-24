@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const data = (JSON.parse(localStorage.getItem('user')));

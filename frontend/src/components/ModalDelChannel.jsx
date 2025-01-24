@@ -30,11 +30,11 @@ const Del = (props) => {
                 response.status 
                 console.log(response)
                 setDelChannel(false)
-                toast(t('channels.removed'))
+                toast.success(t('channels.removed')) //добавить во все уведомления
             });
         } catch (e) {
-            toast.error(t('errors.network'))
-            console.log(e.message)
+            toast.error(t('errors.network'));
+            console.log(e.message);
         }
     }
 
