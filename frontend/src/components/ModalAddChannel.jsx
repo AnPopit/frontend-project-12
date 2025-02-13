@@ -1,25 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Form } from 'react-bootstrap';
-//import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { Modal, FormGroup, FormControl } from 'react-bootstrap';
 import { setActiveChannel } from '../slices/channelsSlice.js'
 import routes from '../routes.js';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
+import { Button, Form } from 'react-bootstrap';
 
-// BEGIN (write your solution here)
 const Add = (props) => {
     const { t } = useTranslation();
     const auth = useSelector((state) => state.auth);
     const { setAddChannel } = props
     const channels = useSelector((state) => state.channels);
     const inputEl = useRef(null);
-    //const [error, setError] = useState('');
-    const [isError, setisError] = useState(false);
     const getArrayChannel = () => {
         const arrayChannel = []
         channels.list.map((el) => {
@@ -57,10 +53,9 @@ const Add = (props) => {
                         Authorization: `Bearer ${auth.token}`,
                     },
                 }).then((response) => {
-                    //dispatch(setChannel([response.data])); // => { id: '3', name: 'new channel', removable: true }
                     dispatch(setActiveChannel({ id: response.data.id, name: response.data.name }))
-                    setAddChannel(false) //теперь форма закрывается после получения ответа?
-                    toast(t('channels.created'))
+                    setAddChannel(false)
+                    toast.success(t('channels.created'))
                 });
             } catch (e) {
                 formik.setSubmitting(false);
@@ -77,7 +72,6 @@ const Add = (props) => {
     const checkVal = () => {
         if (formik.errors.name) {
             formik.setSubmitting(false);
-            setisError(true)
         }
     }
 

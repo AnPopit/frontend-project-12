@@ -1,37 +1,27 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { PlusSquare } from 'react-bootstrap-icons';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
+import filter from 'leo-profanity';
+import { setActiveChannel } from '../slices/channelsSlice.js'
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { useTranslation } from 'react-i18next';
-import { setActiveChannel } from '../slices/channelsSlice.js'
-import filter from 'leo-profanity';
-
+import { PlusSquare } from 'react-bootstrap-icons';
 
 const Channel = (props) => {
     const { t } = useTranslation();
 
     const { setAddChannel, setDelChannel, setUpdateChannel, setchannelForAction } = props
     const dispatch = useDispatch();
-    //const auth = useSelector((state) => state.auth);
     const channels = useSelector((state) => state.channels);
     const activeChannelId = channels.activeChannel.id
-
-    
-
-
     const setChannelFun = (id, name) => () => {
-        const channel = { id, name } //откуда брать ID???
+        const channel = { id, name }
         dispatch(setActiveChannel(channel))
     }
 
     const getClass = (id) => {
         return id === activeChannelId ? "w-100 rounded-0 text-start text-truncate btn btn-secondary" : "w-100 rounded-0 text-start text-truncate btn"
-    } //почему изначально не выделяется канал general
-
-
-
-    
+    }
 
     const handleAddChannel = () => {
         setAddChannel(true)
@@ -45,13 +35,6 @@ const Channel = (props) => {
         setUpdateChannel(true)
     }
 
-
-
-
-
-
-
-
     return (
         <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
             <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
@@ -61,7 +44,7 @@ const Channel = (props) => {
                 </button>
             </div>
             <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
-                {channels.list.map((el) => { //условие по removable
+                {channels.list.map((el) => {
                     if (el.removable) {
                         return (
                             <li key={el.id} className="nav-item w-100">
@@ -79,10 +62,10 @@ const Channel = (props) => {
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
                                             <Dropdown.Item onClick={handleDelModal({ id: el.id, name: el.name })}>
-                                            {t('channels.remove')}
+                                                {t('channels.remove')}
                                             </Dropdown.Item>
                                             <Dropdown.Item onClick={handleUpdateModal({ id: el.id, name: el.name })}>
-                                            {t('channels.rename')}
+                                                {t('channels.rename')}
                                             </Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>

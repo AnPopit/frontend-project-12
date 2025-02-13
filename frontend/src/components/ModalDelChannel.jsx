@@ -1,15 +1,13 @@
-
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button } from 'react-bootstrap';
-//import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
+import {  toast } from 'react-toastify';
 import axios from 'axios';
-import { Modal } from 'react-bootstrap';
 import { delChannel } from '../slices/channelsSlice.js'
 import { delChannelFromMessages } from '../slices/messagesSlice.js'
 import routes from '../routes.js';
-import { useTranslation } from 'react-i18next';
-import {  toast } from 'react-toastify';
+import { Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 const Del = (props) => {
     const { t } = useTranslation();
@@ -30,7 +28,7 @@ const Del = (props) => {
                 response.status 
                 console.log(response)
                 setDelChannel(false)
-                toast.success(t('channels.removed')) //добавить во все уведомления
+                toast.success(t('channels.removed'))
             });
         } catch (e) {
             toast.error(t('errors.network'));

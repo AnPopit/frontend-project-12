@@ -1,20 +1,17 @@
-import { useFormik } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
-import { Form } from 'react-bootstrap';
-import routes from '../routes.js';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { logIn } from '../slices/authSlice.js';
-import loginImg from '../assets/login.jpg';
+import { useFormik } from 'formik';
+import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-//import _ from 'lodash';
+import routes from '../routes.js';
+import { logIn } from '../slices/authSlice.js';
+import { Form } from 'react-bootstrap';
+import loginImg from '../assets/login.jpg';
 
 
 const LoginPage = () => {
     const { t } = useTranslation();
-    console.log(t('hexletChat'))
-
     const inputRef = useRef();
     const [authFailed, setAuthFailed] = useState(false)
     const navigate = useNavigate();
@@ -37,8 +34,11 @@ const LoginPage = () => {
                 navigate('/');
             } catch (err) {
                 formik.setSubmitting(false);
-                setAuthFailed(true);
-                console.log(err)
+                if (err.response.status === 401) {
+                    setAuthFailed(true);
+                    return;
+                }
+                toast.error(t('errors.network'));
             }
         }
     });
@@ -54,7 +54,7 @@ const LoginPage = () => {
                                 <Form.Group className="form-floating mb-3">
                                     <Form.Control onChange={formik.handleChange}
                                         value={formik.values.username}
-                                        disabled={formik.isSubmitting ? true : false}
+                                        disabled={formik.isSubmitting}
                                         placeholder="username"
                                         name="username"
                                         autoComplete="username"
@@ -67,7 +67,7 @@ const LoginPage = () => {
                                 <Form.Group className="form-floating mb-4">
                                     <Form.Control type="password"
                                         onChange={formik.handleChange}
-                                        disabled={formik.isSubmitting ? true : false}
+                                        disabled={formik.isSubmitting}
                                         value={formik.values.password}
                                         placeholder="password"
                                         name="password"
@@ -76,9 +76,9 @@ const LoginPage = () => {
                                         isInvalid={authFailed}
                                         required />
                                     <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
-                                    <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
+                                    <Form.Control.Feedback type="invalid">{t('login.authFailed')}</Form.Control.Feedback>
                                 </Form.Group>
-                                <button disabled={formik.isSubmitting ? true : false} type="submit" className="w-100 mb-3 btn btn-outline-primary">{t('login.submit')}</button>
+                                <button disabled={formik.isSubmitting} type="submit" className="w-100 mb-3 btn btn-outline-primary">{t('login.submit')}</button>
                             </form>
                         </div>
                         <div className="card-footer p-4">

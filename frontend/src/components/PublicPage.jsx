@@ -1,14 +1,11 @@
-import { useSelector, useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-
-
-
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 import Channel from './Channel.jsx';
 import Messages from './Messages.jsx';
 import ModalAddChannel from './ModalAddChannel.jsx';
 import ModalDelChannel from './ModalDelChannel.jsx';
 import ModalUpdateChannel from './ModalUpdateChannel.jsx';
-import axios from 'axios';
 import routes from '../routes.js';
 import { setChannel } from '../slices/channelsSlice.js'
 
@@ -23,7 +20,7 @@ const PublicPage = () => {
     useEffect(() => {
         try {
             const getChannel = async (token) => {
-                const response = await axios.get(routes.channelsPath(), { //try catch
+                const response = await axios.get(routes.channelsPath(), {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -32,10 +29,14 @@ const PublicPage = () => {
             }
             getChannel(auth.token);
         } catch (e) {
+            if (e.response.status === 401) {
+                toast.error(t('errors.unknown'));
+                return;
+            }
             toast.error(t('errors.network'))
         }
 
-    }, [isAddChannel]); //todo зависимость НЕ от флага 
+    }, [isAddChannel]);
 
 
     return (

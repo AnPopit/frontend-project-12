@@ -4,11 +4,11 @@ import { Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { Modal, FormGroup, FormControl } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { setActiveChannel, updateChannel } from '../slices/channelsSlice.js'
 import routes from '../routes.js';
-import { useTranslation } from 'react-i18next';
-import {  toast } from 'react-toastify';
+import { Modal, FormGroup, FormControl } from 'react-bootstrap';
 
 
 const Update = (props) => {
@@ -55,11 +55,11 @@ const Update = (props) => {
                         Authorization: `Bearer ${auth.token}`,
                     },
                 }).then((response) => {
-                    dispatch(updateChannel(response.data)); // => { id: '3', name: 'new channel', removable: true }
+                    dispatch(updateChannel(response.data));
                     dispatch(setActiveChannel({ id: response.data.id, name: response.data.name }))
-                    console.log(response.data); // => { id: '3', name: 'new name channel', removable: true }
+                    console.log(response.data);
                     setUpdateChannel(false)
-                    toast(t('channels.renamed'))
+                    toast.success(t('channels.renamed'))
                 });
 
 

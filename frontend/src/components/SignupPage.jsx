@@ -1,21 +1,19 @@
-import { useFormik } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
-import { Form } from 'react-bootstrap';
-import routes from '../routes.js';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import axios from 'axios';
+import { useTranslation } from 'react-i18next';
+import routes from '../routes.js';
 import { logIn } from '../slices/authSlice.js';
 import signup from '../assets/signup.jpg';
-import * as yup from 'yup';
-import { useTranslation } from 'react-i18next';
+import { Form } from 'react-bootstrap';
 
 
 const SignupPage = () => {
     const { t } = useTranslation();
     const inputRef = useRef();
-    //const [error, setError] = useState('') //три состояния 
-
     const [isError, setisError] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -49,13 +47,11 @@ const SignupPage = () => {
             setisError(false);
             try {
                 const res = await axios.post(routes.signupPath(), { username: values.username, password: values.password })
-                console.log(res)
                 dispatch(logIn(res.data))
                 navigate(routes.onlyPublickPath());
             } catch (err) {
                 formik.setSubmitting(false);
                 if (err.response.status === 409) {
-                    console.log('Почему ты сюда не заходишь??')
                     setisError(true);
                     inputRef.current.select();
                 }
@@ -63,15 +59,6 @@ const SignupPage = () => {
         }
     });
 
-
-    //const checkVal = () => {
-    //  console.log(formik.touched)
-    //if (formik.errors.username) {
-    //    formik.setSubmitting(false);
-    //    setError(formik.errors.username) //п
-    //    setisError(true)
-    // }
-    //  }
 
     return (
         <div className="container-fluid h-100">
@@ -85,7 +72,7 @@ const SignupPage = () => {
                                 <Form.Group className="form-floating mb-3">
                                     <Form.Control onChange={formik.handleChange}
                                         value={formik.values.username}
-                                        disabled={formik.isSubmitting ? true : false}
+                                        disabled={formik.isSubmitting}
                                         placeholder="username"
                                         name="username"
                                         autoComplete="username"
@@ -99,7 +86,7 @@ const SignupPage = () => {
                                 <Form.Group className="form-floating mb-3">
                                     <Form.Control onChange={formik.handleChange}
                                         value={formik.values.password}
-                                        disabled={formik.isSubmitting ? true : false}
+                                        disabled={formik.isSubmitting}
                                         placeholder="password"
                                         name="password"
                                         type="password"
@@ -115,7 +102,7 @@ const SignupPage = () => {
                                     <Form.Control
                                         onChange={formik.handleChange}
                                         type="password"
-                                        disabled={formik.isSubmitting ? true : false}
+                                        disabled={formik.isSubmitting}
                                         value={formik.values.confirmPassword}
                                         placeholder="confirmPassword"
                                         name="confirmPassword"
@@ -127,7 +114,7 @@ const SignupPage = () => {
                                     <Form.Control.Feedback type="invalid" tooltip>{formik.errors.confirmPassword}</Form.Control.Feedback>
                                 </Form.Group>
                                 {isError && <div className="invalid ">{t('signup.alreadyExists')}</div>}
-                                <button disabled={formik.isSubmitting ? true : false} type="submit" className="w-100 mb-3 btn btn-outline-primary">{t('signup.submit')}</button>
+                                <button disabled={formik.isSubmitting} type="submit" className="w-100 mb-3 btn btn-outline-primary">{t('signup.submit')}</button>
                             </form>
                         </div>
                     </div>

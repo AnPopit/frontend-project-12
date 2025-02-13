@@ -1,19 +1,16 @@
-
-import { useSelector, useDispatch } from 'react-redux';
-import { useFormik } from 'formik';
-import { Form } from 'react-bootstrap';
-import { ArrowRightSquare } from 'react-bootstrap-icons';
-import { io } from "socket.io-client";
-import _ from 'lodash';
-import filter from 'leo-profanity';
 import React, { useEffect, useRef } from 'react';
-import { setMessages } from '../slices/messagesSlice.js';
-//import { selectorsChannels } from '../slices/channelsSlice.js';
-import axios from 'axios';
-import routes from '../routes.js';
+import { useSelector, useDispatch } from 'react-redux';
 import { animateScroll } from 'react-scroll';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { useFormik } from 'formik';
+import axios from 'axios';
+
+import filter from 'leo-profanity';
+import { setMessages } from '../slices/messagesSlice.js';
+import routes from '../routes.js';
+import { Form } from 'react-bootstrap';
+import { ArrowRightSquare } from 'react-bootstrap-icons';
 
 const Messages = () => {
     const { t } = useTranslation();
@@ -21,12 +18,6 @@ const Messages = () => {
     const auth = useSelector((state) => state.auth);
     const inputEl = useRef(null);
     const divEl = useRef(null);
-
-    const socket = io("ws://localhost:5002")
-    socket.on('newMessage', (payload) => {
-        dispatch(setMessages(payload))
-    })
-
 
     useEffect(() => {
         try {
@@ -53,10 +44,6 @@ const Messages = () => {
 
     const activeChannel = channels.activeChannel;
     const username = auth.username
-
-
-
-
 
     const formik = useFormik({
         initialValues: {
@@ -107,7 +94,7 @@ const Messages = () => {
                 <div id="messages-box" className="chat-messages overflow-auto px-5 ">
                     {getArrayMessage(activeChannel.id).map((el) => {
                         return (
-                            <div key={_.uniqueId()} className="text-break mb-2"><b>{el.username}</b>: {filter.clean(el.body)}</div>
+                            <div key={el.id} className="text-break mb-2"><b>{el.username}</b>: {filter.clean(el.body)}</div>
                         )
                     })}
 
@@ -131,6 +118,3 @@ const Messages = () => {
 }
 
 export default Messages;
-
-
-//блокировка инпута и самбиа во время отправки
