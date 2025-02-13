@@ -41,6 +41,7 @@ const Channel = (props) => {
                 <b>{t('channels.channels')}</b>
                 <button onClick={handleAddChannel} className="p-0 text-primary btn btn-group-vertical">
                     <PlusSquare size={20} />
+                    <span class="visually-hidden">+</span>
                 </button>
             </div>
             <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
