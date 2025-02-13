@@ -85,6 +85,7 @@ const Add = (props) => {
                     <FormGroup>
                         <FormControl isInvalid={!!formik.errors.name} id="name" name="name" className="mb-2 form-control" ref={inputEl} onChange={formik.handleChange} value={formik.values.name}>
                         </FormControl>
+                        <label class="visually-hidden" for="name">{t('channels.channelName')}</label>
                         <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
                         <div className="invalid-feedback"></div>
                     </FormGroup>
