@@ -11,7 +11,7 @@ import { Provider, ErrorBoundary } from '@rollbar/react'; // Provider imports 'r
 import routes from '../routes.js';
 import PublicPage from './PublicPage.jsx';
 import LoginPage from './LoginPage.jsx';
-import ErrorPage from './ErrorPage.jsx';
+import ErrorPage from './NotFoundPage.jsx';
 import Header from './Header.jsx';
 import SignupPage from './SignupPage.jsx';
 
