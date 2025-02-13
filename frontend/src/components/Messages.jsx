@@ -51,7 +51,7 @@ const Messages = () => {
         },
         onSubmit: (values) => {
             try {
-                const newMessage = { body: values.messages, channelId: activeChannel.id, username: username } //try catch
+                const newMessage = { body: values.messages, channelId: activeChannel.id, username: username }
                 axios.post(routes.messagesPath(), newMessage, {
                     headers: {
                         Authorization: `Bearer ${auth.token}`,
