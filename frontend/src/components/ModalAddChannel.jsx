@@ -100,7 +100,7 @@ const Add = (props) => {
             </Modal.Body>
         </Modal>
 
-    )
+    ) 
 }
 
 export default Add

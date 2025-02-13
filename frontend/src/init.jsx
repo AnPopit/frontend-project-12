@@ -32,20 +32,20 @@ const init = async () => {
         store.dispatch(setMessages(payload))
     })//добавить сокеты на действия с каналами
 
-    socket.on('newChannel', (payload) => {
-        store.dispatch(setChannel(payload))   
-        console.log(payload) // { id: 6, name: "new channel", removable: true }
-    });
+    //socket.on('newChannel', (payload) => {
+     //   store.dispatch(setChannel(payload))   
+       // console.log(payload) // { id: 6, name: "new channel", removable: true }
+   // });
 
-    socket.on('removeChannel', (payload) => {
-        store.dispatch(delChannel(payload))   
-        console.log(payload); // { id: 6 };
-    });
+    //socket.on('removeChannel', (payload) => {
+     //   store.dispatch(delChannel(payload))   
+     //   console.log(payload); // { id: 6 };
+  //  });
 
-    socket.on('renameChannel', (payload) => {
-        store.dispatch(updateChannel(payload))   
-        console.log(payload); // { id: 7, name: "new name channel", removable: true }
-    });
+   // socket.on('renameChannel', (payload) => {
+   //     store.dispatch(updateChannel(payload))   
+   //     console.log(payload); // { id: 7, name: "new name channel", removable: true }
+  //  });
 
 
 
