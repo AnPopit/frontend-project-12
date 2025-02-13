@@ -42,7 +42,7 @@ const Messages = () => {
     const messages = useSelector((state) => state.messages);
     const channels = useSelector((state) => state.channels);
 
-    const activeChannel = channels.activeChannel;
+    const activeChannel = channels.activeChannel
     const username = auth.username
 
     const formik = useFormik({
