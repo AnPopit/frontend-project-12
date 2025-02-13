@@ -92,6 +92,7 @@ const Update = (props) => {
                     <FormGroup>
                         <FormControl isInvalid={isError} onFocus={() => inputEl.current.select()} id="name" name="name" className="mb-2 form-control" ref={inputEl} onChange={formik.handleChange} value={formik.values.name}>
                         </FormControl>
+                        <label class="visually-hidden" for="name">{t('channels.channelName')}</label>
                         <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
                         <div className="invalid-feedback"></div>
                     </FormGroup>
