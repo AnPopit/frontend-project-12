@@ -10,20 +10,6 @@ import routes from '../routes.js';
 import { logIn } from '../slices/authSlice.js';
 import signup from '../assets/signup.jpg';
 
-const schema = yup.object({
-  username: yup.string()
-    .required(t('signup.required'))
-    .min(3, t('signup.usernameConstraints'))
-    .max(20, t('signup.usernameConstraints')),
-  password: yup.string()
-    .required(t('signup.required'))
-    .min(6, t('signup.passMin')),
-  confirmPassword: yup.string()
-    .required(t('signup.required'))
-    .oneOf([yup.ref('password'), null], t('signup.mustMatch')),
-
-});
-
 const SignupPage = () => {
   const { t } = useTranslation();
   const inputRef = useRef();
@@ -35,7 +21,19 @@ const SignupPage = () => {
     inputRef.current.focus();
   }, []);
 
+  const schema = yup.object({
+    username: yup.string()
+      .required(t('signup.required'))
+      .min(3, t('signup.usernameConstraints'))
+      .max(20, t('signup.usernameConstraints')),
+    password: yup.string()
+      .required(t('signup.required'))
+      .min(6, t('signup.passMin')),
+    confirmPassword: yup.string()
+      .required(t('signup.required'))
+      .oneOf([yup.ref('password'), null], t('signup.mustMatch')),
 
+  });
 
   const formik = useFormik({
     initialValues: {
