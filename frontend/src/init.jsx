@@ -11,7 +11,7 @@ import store from './slices/index.js';
 import { I18nextProvider } from 'react-i18next';
 import Component from './components/App.jsx';
 import { setMessages } from './slices/messagesSlice.js';
-import { setChannel, delChannel, updateChannel } from './slices/channelsSlice.js';
+import { setChannel, delChannel, updateChannel, addChannel } from './slices/channelsSlice.js';
 
 const init = async () => {
     const i18n = i18next.createInstance();
@@ -32,10 +32,10 @@ const init = async () => {
         store.dispatch(setMessages(payload))
     })//добавить сокеты на действия с каналами
 
-    //socket.on('newChannel', (payload) => {
-     //   store.dispatch(setChannel(payload))   
-       // console.log(payload) // { id: 6, name: "new channel", removable: true }
-   // });
+    socket.on('newChannel', (payload) => {
+        store.dispatch(addChannel(payload))   
+      console.log({payload}) // { id: 6, name: "new channel", removable: true }
+   });
 
     //socket.on('removeChannel', (payload) => {
      //   store.dispatch(delChannel(payload))   
@@ -45,7 +45,7 @@ const init = async () => {
    // socket.on('renameChannel', (payload) => {
    //     store.dispatch(updateChannel(payload))   
    //     console.log(payload); // { id: 7, name: "new name channel", removable: true }
-  //  });
+  //  }); 
 
 
 

@@ -25,6 +25,7 @@ const PublicPage = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
+                console.log(response.data)
                 dispatch(setChannel(response.data))
             }
             getChannel(auth.token);
