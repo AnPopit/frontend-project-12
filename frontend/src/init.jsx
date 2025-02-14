@@ -27,7 +27,7 @@ const init = async () => {
         });
 
 
-    const socket = io("ws://localhost:5002")
+    const socket = io()
     socket.on('newMessage', (payload) => {
         store.dispatch(setMessages(payload))
     })//добавить сокеты на действия с каналами
