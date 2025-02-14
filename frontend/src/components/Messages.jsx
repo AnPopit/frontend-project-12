@@ -108,7 +108,7 @@ const Messages = () => {
           <Form noValidate="" className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
             <Form.Group className="input-group has-validation">
               <Form.Control ref={inputEl} aria-label={t('chat.newMessage')} className="border-0 p-0 ps-2 form-control" id="messages" name="messages" value={formik.values.messages} onChange={formik.handleChange} placeholder={t('chat.inputMesage')} />
-              <label className="visually-hidden" htmlFor="name">{t('chat.newMessage')}</label>
+              <label className="visually-hidden" htmlFor="messages">{t('chat.newMessage')}</label>
               <button type="submit" disabled="" className="btn btn-group-vertical">
                 <ArrowRightSquare fill="currentColor" size={20} />
               </button>
