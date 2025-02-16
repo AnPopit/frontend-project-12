@@ -9,12 +9,12 @@ import store from './slices/index.js';
 
 import Component from './components/App.jsx';
 import { setMessages } from './slices/messagesSlice.js';
-import {
-  addChannel,
-} from './slices/channelsSlice.js';
-// import {
-// setChannel, delChannel, updateChannel, addChannel,
+/// import {
+// addChannel,
 // } from './slices/channelsSlice.js';
+import {
+  delChannel, updateChannel, addChannel,
+} from './slices/channelsSlice.js';
 
 const init = async () => {
   const i18n = i18next.createInstance();
@@ -38,15 +38,13 @@ const init = async () => {
     store.dispatch(addChannel(payload));
   });
 
-  // socket.on('removeChannel', (payload) => {
-  //   store.dispatch(delChannel(payload))
-  //   console.log(payload); // { id: 6 };
-  //  });
+  socket.on('removeChannel', (payload) => {
+    store.dispatch(delChannel(payload));
+  });
 
-  // socket.on('renameChannel', (payload) => {
-  //     store.dispatch(updateChannel(payload))
-  //     console.log(payload); // { id: 7, name: "new name channel", removable: true }
-  //  });
+  socket.on('renameChannel', (payload) => {
+    store.dispatch(updateChannel(payload));
+  });
 
   return (
     <Provider store={store}>
