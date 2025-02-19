@@ -12,7 +12,6 @@ const getUserFromLocalStorage = () => {
 
 const data = getUserFromLocalStorage();
 
-console.log(data);
 
 const initialState = { token: data?.token, username: data?.username, log: true };
 
@@ -22,7 +21,6 @@ const authSlice = createSlice({
   reducers: {
     logIn(state, action) {
       const { token, username } = action.payload;
-      console.log(token);
       localStorage.setItem('user', JSON.stringify({ token, username }));
       state.log = true;
       state.token = token;

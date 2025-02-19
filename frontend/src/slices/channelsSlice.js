@@ -26,7 +26,6 @@ const channelsSlice = createSlice({
       state.list = state.list.map((el) => {
         if (el.id === action.payload.id) {
           el.name = action.payload.name;
-
           return el;
         }
         return el;

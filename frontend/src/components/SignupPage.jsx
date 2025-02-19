@@ -77,7 +77,7 @@ const SignupPage = () => {
                     name="username"
                     autoComplete="username"
                     id="username"
-                    isInvalid={(formik.errors.confirmPassword && formik.touched.confirmPassword)
+                    isInvalid={(formik.errors.username && formik.touched.username)
                       || isError}
                     required
                     ref={inputRef}
@@ -95,7 +95,7 @@ const SignupPage = () => {
                     type="password"
                     autoComplete="password"
                     id="password"
-                    isInvalid={(formik.errors.confirmPassword && formik.touched.confirmPassword)
+                    isInvalid={(formik.errors.password && formik.touched.password)
                       || isError}
                     required
                   />
