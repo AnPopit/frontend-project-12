@@ -13,7 +13,7 @@ const messagesSlice = createSlice({
     },
     delChannelFromMessages: (state, action) => {
       const id = action.payload;
-      Object.keys(state).map((el) => (state[el].channelId === id ? delete state[el] : null));
+      Object.keys(state).forEach((el) => (state[el].channelId === id ? delete state[el] : null));
     },
   },
 
