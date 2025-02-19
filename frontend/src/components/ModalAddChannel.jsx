@@ -45,21 +45,20 @@ const Add = (props) => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      try {
-        const newChannel = { name: values.name };
-        axios.post(routes.channelsPath(), newChannel, {
-          headers: {
-            Authorization: `Bearer ${auth.token}`,
-          },
-        }).then((response) => {
-          dispatch(setActiveChannel({ id: response.data.id, name: response.data.name }));
-          setAddChannel(false);
-          toast.success(t('channels.created'));
+      const newChannel = { name: values.name };
+      axios.post(routes.channelsPath(), newChannel, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }).then((response) => {
+        dispatch(setActiveChannel({ id: response.data.id, name: response.data.name }));
+        setAddChannel(false);
+        toast.success(t('channels.created'));
+      })
+        .catch(() => {
+          formik.setSubmitting(false);
+          toast.error(t('errors.network'));
         });
-      } catch (e) {
-        formik.setSubmitting(false);
-        toast.error(t('errors.network'));
-      }
     },
   });
 
