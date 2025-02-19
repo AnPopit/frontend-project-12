@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Button, Form, Modal, FormGroup, FormControl,
@@ -25,15 +25,15 @@ const Update = (props) => {
   };
 
   const schema = yup.object({
-      name: yup.string()
-        .required(t('validation.required'))
-        .min(3, t('validation.min'))
-        .max(20, t('validation.max'))
-        .notOneOf(
-          getArrayChannel(),
-          t('validation.uniq'),
-        ),
-    });
+    name: yup.string()
+      .required(t('validation.required'))
+      .min(3, t('validation.min'))
+      .max(20, t('validation.max'))
+      .notOneOf(
+        getArrayChannel(),
+        t('validation.uniq'),
+      ),
+  });
 
   useEffect(() => {
     inputEl.current.focus();
@@ -57,7 +57,6 @@ const Update = (props) => {
         toast.success(t('channels.renamed'));
       })
         .catch(() => {
-          
           formik.setSubmitting(false);
           toast.error(t('errors.network'));
         });
