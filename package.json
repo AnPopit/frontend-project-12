@@ -8,7 +8,7 @@
     "start": "start-server -s ./frontend/dist",
     "postinstall": "cd frontend && npm ci"
   },
-  "author": "",
+  "author": "Anna Politova",
   "license": "ISC",
   "dependencies": {
     "@hexlet/chat-server": "^2.0.4"
