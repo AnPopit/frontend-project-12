@@ -21,7 +21,7 @@ const Del = (props) => {
         Authorization: `Bearer ${auth.token}`,
       },
     }).then((response) => {
-      dispatch((delChannel(response.data.id)));
+      dispatch(delChannel(response.data.id));
       dispatch((delChannelFromMessages(response.data.id)));
       setDelChannel(false);
       toast.success(t('channels.removed'));
