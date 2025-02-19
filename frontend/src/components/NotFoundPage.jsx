@@ -15,7 +15,7 @@ const ErrorPage = () => {
       <p className="text-muted">
         {t('notFound.message')}
         {' '}
-        <Link to={routes.onlyPublickPath()}>{t('notFound.linkText')}</Link>
+        <Link to={routes.onlyPublicPath()}>{t('notFound.linkText')}</Link>
       </p>
     </div>
   );

@@ -21,7 +21,7 @@ const Header = () => {
   return (
     <Navbar className="shadow-sm navbar-expand-lg navbar-light bg-white navbar navbar-expand navbar-light">
       <div className="container">
-        <Navbar.Brand as={Link} to={routes.onlyPublickPath()}>
+        <Navbar.Brand as={Link} to={routes.onlyPublicPath()}>
           {t('hexletChat')}
         </Navbar.Brand>
         {auth.token ? <button onClick={logOutFun} type="button" className="btn btn-primary">{t('logout')}</button> : null}
