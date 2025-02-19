@@ -16,20 +16,19 @@ const Del = (props) => {
   const { setDelChannel, channelForAction } = props;
 
   const handleDelChannel = () => {
-    try {
-      axios.delete(routes.editChannelsPath(channelForAction.id), {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      }).then((response) => {
-        dispatch((delChannel(response.data.id)));
-        dispatch((delChannelFromMessages(response.data.id)));
-        setDelChannel(false);
-        toast.success(t('channels.removed'));
+    axios.delete(routes.editChannelsPath(channelForAction.id), {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    }).then((response) => {
+      dispatch((delChannel(response.data.id)));
+      dispatch((delChannelFromMessages(response.data.id)));
+      setDelChannel(false);
+      toast.success(t('channels.removed'));
+    })
+      .catch(() => {
+        toast.error(t('errors.network'));
       });
-    } catch (e) {
-      toast.error(t('errors.network'));
-    }
   };
 
   const handleClose = () => setDelChannel(false);
