@@ -18,7 +18,6 @@ const Update = (props) => {
   const { setUpdateChannel, channelForAction } = props;
   const channels = useSelector((state) => state.channels);
   const inputEl = useRef(null);
-  const [error, setError] = useState('');
   const [isError, setisError] = useState(false);
   const getArrayChannel = () => {
     const arrayChannel = channels.list.map((el) => el.name);
@@ -69,7 +68,6 @@ const Update = (props) => {
   const checkVal = () => {
     if (formik.errors.name) {
       formik.setSubmitting(false);
-      setError(formik.errors.name);
       setisError(true);
     }
   };
@@ -84,7 +82,7 @@ const Update = (props) => {
           <FormGroup>
             <FormControl isInvalid={isError} onFocus={() => inputEl.current.select()} id="name" name="name" className="mb-2 form-control" ref={inputEl} onChange={formik.handleChange} value={formik.values.name} />
             <label className="visually-hidden" htmlFor="name">{t('channels.channelName')}</label>
-            <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
             <div className="invalid-feedback" />
           </FormGroup>
           <Modal.Footer>
