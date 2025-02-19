@@ -22,27 +22,25 @@ const PrivateRoute = ({ children }) => {
 };
 
 const App = () => (
-  <>
-    <div className="d-flex flex-column h-100">
-      <Router>
-        <Header />
-        <Routes>
-          <Route path={routes.onlyErrorPath()} element={<ErrorPage />} />
-          <Route
-            path={routes.onlyPublicPath()}
-            element={(
-              <PrivateRoute>
-                <PublicPage />
-              </PrivateRoute>
+  <div className="d-flex flex-column h-100">
+    <Router>
+      <Header />
+      <Routes>
+        <Route path={routes.onlyErrorPath()} element={<ErrorPage />} />
+        <Route
+          path={routes.onlyPublicPath()}
+          element={(
+            <PrivateRoute>
+              <PublicPage />
+            </PrivateRoute>
             )}
-          />
-          <Route path={routes.onlyLoginPath()} element={<LoginPage />} />
-          <Route path={routes.onlySignupPath()} element={<SignupPage />} />
-        </Routes>
-      </Router>
-    </div>
-    <ToastContainer />
-  </>
+        />
+        <Route path={routes.onlyLoginPath()} element={<LoginPage />} />
+        <Route path={routes.onlySignupPath()} element={<SignupPage />} />
+      </Routes>
+      <ToastContainer />
+    </Router>
+  </div>
 );
 
 export default App;
