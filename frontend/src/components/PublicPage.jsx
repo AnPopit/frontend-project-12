@@ -21,15 +21,15 @@ const PublicPage = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
+    const getChannel = async (token) => {
+      const response = await axios.get(routes.channelsPath(), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch(setChannel(response.data));
+    };
     try {
-      const getChannel = async (token) => {
-        const response = await axios.get(routes.channelsPath(), {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        dispatch(setChannel(response.data));
-      };
       getChannel(auth.token);
     } catch (e) {
       if (e.response.status === 401) {
