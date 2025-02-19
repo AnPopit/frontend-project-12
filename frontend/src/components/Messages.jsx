@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import axios from 'axios';
-
 import filter from 'leo-profanity';
 import { Form } from 'react-bootstrap';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
@@ -21,15 +20,15 @@ const Messages = () => {
   const divEl = useRef(null);
 
   useEffect(() => {
+    const getMessages = async (token) => {
+      const response = await axios.get(routes.messagesPath(), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      response.data.forEach((el) => dispatch(setMessages(el)));
+    };
     try {
-      const getMessages = async (token) => {
-        const response = await axios.get(routes.messagesPath(), {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        response.data.map((el) => dispatch(setMessages(el)));
-      };
       getMessages(auth.token);
     } catch (e) {
       toast.error(t('errors.network'));
@@ -47,20 +46,19 @@ const Messages = () => {
       messages: '',
     },
     onSubmit: (values) => {
-      try {
-        const newMessage = { body: values.messages, channelId: activeChannel.id, username };
-        axios.post(routes.messagesPath(), newMessage, {
-          headers: {
-            Authorization: `Bearer ${auth.token}`,
-          },
-        }).then((response) => {
-          dispatch(setMessages(response.data));
-          formik.resetForm();
-          inputEl.current.focus();
+      const newMessage = { body: values.messages, channelId: activeChannel.id, username };
+      axios.post(routes.messagesPath(), newMessage, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }).then((response) => {
+        dispatch(setMessages(response.data));
+        formik.resetForm();
+        inputEl.current.focus();
+      })
+        .catch(() => {
+          toast.error(t('errors.network'));
         });
-      } catch (e) {
-        toast.error(t('errors.network'));
-      }
     },
   });
 
