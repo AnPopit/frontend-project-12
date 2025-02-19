@@ -4,7 +4,7 @@ export default {
   loginPath: () => [apiPath, 'login'].join('/'),
   channelsPath: () => [apiPath, 'channels'].join('/'),
   messagesPath: () => [apiPath, 'messages'].join('/'),
-  onlyPublickPath: () => '/',
+  onlyPublicPath: () => '/',
   onlyLoginPath: () => '/login',
   onlyErrorPath: () => '/*',
   editChannelsPath: (id) => [apiPath, 'channels', id].join('/'),

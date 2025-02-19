@@ -29,7 +29,7 @@ const App = () => (
         <Routes>
           <Route path={routes.onlyErrorPath()} element={<ErrorPage />} />
           <Route
-            path={routes.onlyPublickPath()}
+            path={routes.onlyPublicPath()}
             element={(
               <PrivateRoute>
                 <PublicPage />
