@@ -16,6 +16,7 @@ const Messages = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+
   const inputEl = useRef(null);
   const divEl = useRef(null);
 
@@ -77,6 +78,11 @@ const Messages = () => {
     divEl.current?.scrollIntoView();
   }, [activeChannel]);
 
+  const getNameActiveChannel = (id) => {
+    const activeChannelArray = channels.list.filter((el) => el.id === id);
+    return activeChannelArray[0]?.name;
+  };
+
   return (
     <div className="col p-0 h-100">
       <div className="d-flex flex-column h-100">
@@ -84,7 +90,7 @@ const Messages = () => {
           <p className="m-0">
             <b>
               #
-              {activeChannel.name}
+              {getNameActiveChannel(activeChannel.id)}
             </b>
           </p>
           <span className="text-muted">

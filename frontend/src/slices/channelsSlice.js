@@ -2,7 +2,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { list: [], activeChannel: { id: '1', name: 'general' } };
+const initialState = { list: [], activeChannel: { id: '1' } };
 
 const channelsSlice = createSlice({
   name: 'channels',
@@ -20,7 +20,7 @@ const channelsSlice = createSlice({
     delChannel: (state, action) => {
       const id = action.payload;
       state.list = state.list.filter((el) => el.id !== id);
-      state.activeChannel = { id: 1, name: 'general' };
+      state.activeChannel = { id: '1' };
     },
     updateChannel: (state, action) => {
       state.list = state.list.map((el) => {
