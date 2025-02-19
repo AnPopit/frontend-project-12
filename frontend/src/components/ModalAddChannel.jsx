@@ -19,8 +19,7 @@ const Add = (props) => {
   const channels = useSelector((state) => state.channels);
   const inputEl = useRef(null);
   const getArrayChannel = () => {
-    const arrayChannel = [];
-    channels.list.map((el) => arrayChannel.push(el.name));
+    const arrayChannel = channels.list.map((el) => el.name);
     return arrayChannel;
   };
 

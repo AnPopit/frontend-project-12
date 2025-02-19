@@ -21,8 +21,7 @@ const Update = (props) => {
   const [error, setError] = useState('');
   const [isError, setisError] = useState(false);
   const getArrayChannel = () => {
-    const arrayChannel = [];
-    channels.list.map((el) => arrayChannel.push(el.name));
+    const arrayChannel = channels.list.map((el) => el.name);
     return arrayChannel;
   };
 
