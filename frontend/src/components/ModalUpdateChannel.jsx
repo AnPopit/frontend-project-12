@@ -47,22 +47,21 @@ const Update = (props) => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      try {
-        const editedChannel = { name: values.name };
-        axios.patch(routes.editChannelsPath(channelForAction.id), editedChannel, {
-          headers: {
-            Authorization: `Bearer ${auth.token}`,
-          },
-        }).then((response) => {
-          dispatch(updateChannel(response.data));
-          dispatch(setActiveChannel({ id: response.data.id, name: response.data.name }));
-          setUpdateChannel(false);
-          toast.success(t('channels.renamed'));
+      const editedChannel = { name: values.name };
+      axios.patch(routes.editChannelsPath(channelForAction.id), editedChannel, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }).then((response) => {
+        dispatch(updateChannel(response.data));
+        dispatch(setActiveChannel({ id: response.data.id, name: response.data.name }));
+        setUpdateChannel(false);
+        toast.success(t('channels.renamed'));
+      })
+        .catch(() => {
+          formik.setSubmitting(false);
+          toast.error(t('errors.network'));
         });
-      } catch (e) {
-        formik.setSubmitting(false);
-        toast.error(t('errors.network'));
-      }
     },
   });
 
