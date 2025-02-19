@@ -4,9 +4,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const getUserFromLocalStorage = () => {
   try {
-      return JSON.parse(localStorage.getItem('user') || '');
+    return JSON.parse(localStorage.getItem('user') || '');
   } catch (error) {
-      return null;
+    return null;
   }
 };
 
