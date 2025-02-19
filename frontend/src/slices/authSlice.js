@@ -2,7 +2,15 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-const data = (JSON.parse(localStorage.getItem('user')));
+const getUserFromLocalStorage = () => {
+  try {
+      return JSON.parse(localStorage.getItem('user') || '');
+  } catch (error) {
+      return null;
+  }
+};
+
+const data = getUserFromLocalStorage();
 
 console.log(data);
 
@@ -18,15 +26,13 @@ const authSlice = createSlice({
       localStorage.setItem('user', JSON.stringify({ token, username }));
       state.log = true;
       state.token = token;
-      // state.id = id;
       state.username = username;
     },
     logOut(state) {
       state.log = false;
       state.username = '';
-      state.token = ''; // надо ли???
-      // убрать из локал
-      localStorage.clear();
+      state.token = '';
+      localStorage.setItem('user', null);
     },
   },
 });
