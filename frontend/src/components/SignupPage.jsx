@@ -48,7 +48,7 @@ const SignupPage = () => {
         const res = await axios
           .post(routes.signupPath(), { username: values.username, password: values.password });
         dispatch(logIn(res.data));
-        navigate(routes.onlyPublickPath());
+        navigate(routes.onlyPublicPath());
       } catch (err) {
         formik.setSubmitting(false);
         if (err.response.status === 409) {
