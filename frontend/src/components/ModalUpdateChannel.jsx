@@ -18,22 +18,22 @@ const Update = (props) => {
   const { setUpdateChannel, channelForAction } = props;
   const channels = useSelector((state) => state.channels);
   const inputEl = useRef(null);
-  const [isError, setisError] = useState(false);
+
   const getArrayChannel = () => {
     const arrayChannel = channels.list.map((el) => el.name);
     return arrayChannel;
   };
 
   const schema = yup.object({
-    name: yup.string()
-      .required()
-      .min(3)
-      .max(20)
-      .notOneOf(
-        getArrayChannel(),
-        t('validation.uniq'),
-      ),
-  });
+      name: yup.string()
+        .required(t('validation.required'))
+        .min(3, t('validation.min'))
+        .max(20, t('validation.max'))
+        .notOneOf(
+          getArrayChannel(),
+          t('validation.uniq'),
+        ),
+    });
 
   useEffect(() => {
     inputEl.current.focus();
@@ -57,6 +57,7 @@ const Update = (props) => {
         toast.success(t('channels.renamed'));
       })
         .catch(() => {
+          
           formik.setSubmitting(false);
           toast.error(t('errors.network'));
         });
@@ -64,13 +65,6 @@ const Update = (props) => {
   });
 
   const handleClose = () => setUpdateChannel(false);
-
-  const checkVal = () => {
-    if (formik.errors.name) {
-      formik.setSubmitting(false);
-      setisError(true);
-    }
-  };
 
   return (
     <Modal show>
@@ -80,7 +74,7 @@ const Update = (props) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <FormGroup>
-            <FormControl isInvalid={isError} onFocus={() => inputEl.current.select()} id="name" name="name" className="mb-2 form-control" ref={inputEl} onChange={formik.handleChange} value={formik.values.name} />
+            <FormControl isInvalid={!!formik.errors.name} onFocus={() => inputEl.current.select()} id="name" name="name" className="mb-2 form-control" ref={inputEl} onChange={formik.handleChange} value={formik.values.name} />
             <label className="visually-hidden" htmlFor="name">{t('channels.channelName')}</label>
             <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
             <div className="invalid-feedback" />
@@ -89,7 +83,7 @@ const Update = (props) => {
             <Button onClick={handleClose} variant="secondary" disabled={formik.isSubmitting}>
               {t('modals.cancel')}
             </Button>
-            <Button onClick={checkVal} variant="primary" type="submit">
+            <Button variant="primary" type="submit">
               {t('modals.submit')}
             </Button>
           </Modal.Footer>

@@ -63,12 +63,6 @@ const Add = (props) => {
 
   const handleClose = () => setAddChannel(false);
 
-  const checkVal = () => {
-    if (formik.errors.name) {
-      formik.setSubmitting(false);
-    }
-  };
-
   return (
     <Modal show>
       <Modal.Header closeButton onHide={handleClose}>
@@ -86,7 +80,7 @@ const Add = (props) => {
             <Button onClick={handleClose} variant="secondary" disabled={formik.isSubmitting}>
               {t('modals.cancel')}
             </Button>
-            <Button onClick={checkVal} variant="primary" type="submit">
+            <Button variant="primary" type="submit">
               {t('modals.submit')}
             </Button>
           </Modal.Footer>
