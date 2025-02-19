@@ -15,7 +15,7 @@ const PublicPage = () => {
   const [isAddChannel, setAddChannel] = useState(false);
   const [isDelChannel, setDelChannel] = useState(false);
   const [isUpdateChannel, setUpdateChannel] = useState(false);
-  const [channelForAction, setchannelForAction] = useState('');
+  const [channelForAction, setchannelForAction] = useState({});
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { t } = useTranslation();
