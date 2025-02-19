@@ -12,7 +12,6 @@ const getUserFromLocalStorage = () => {
 
 const data = getUserFromLocalStorage();
 
-
 const initialState = { token: data?.token, username: data?.username, log: true };
 
 const authSlice = createSlice({
