@@ -37,7 +37,7 @@ const PublicPage = () => {
         toast.error(t('errors.network'));
       }
     };
-    getChannel(auth.token); // обернуть только запрос 8,18
+    getChannel(auth.token);
   }, [isAddChannel]);
 
   return (
