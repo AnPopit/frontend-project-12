@@ -21,18 +21,18 @@ const Messages = () => {
 
   useEffect(() => {
     const getMessages = async (token) => {
-      const response = await axios.get(routes.messagesPath(), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      response.data.forEach((el) => dispatch(setMessages(el)));
+      try {
+        const response = await axios.get(routes.messagesPath(), {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        response.data.forEach((el) => dispatch(setMessages(el)));
+      } catch (e) {
+        toast.error(t('errors.network'));
+      }
     };
-    try {
-      getMessages(auth.token);
-    } catch (e) {
-      toast.error(t('errors.network'));
-    }
+    getMessages(auth.token);
   }, []);
 
   const messages = useSelector((state) => state.messages);

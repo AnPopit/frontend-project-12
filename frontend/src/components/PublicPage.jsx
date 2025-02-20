@@ -22,22 +22,22 @@ const PublicPage = () => {
 
   useEffect(() => {
     const getChannel = async (token) => {
-      const response = await axios.get(routes.channelsPath(), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      dispatch(setChannel(response.data));
-    };
-    try {
-      getChannel(auth.token);
-    } catch (e) {
-      if (e.response.status === 401) {
-        toast.error(t('errors.unknown'));
-        return;
+      try {
+        const response = await axios.get(routes.channelsPath(), {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        dispatch(setChannel(response.data));
+      } catch (e) {
+        if (e.response.status === 401) {
+          toast.error(t('errors.unknown'));
+          return;
+        }
+        toast.error(t('errors.network'));
       }
-      toast.error(t('errors.network'));
-    }
+    };
+    getChannel(auth.token); // обернуть только запрос 8,18
   }, [isAddChannel]);
 
   return (
